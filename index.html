@@ -350,77 +350,40 @@
             </div>
         </div>
     </section>
-<!-- OWNER LOGIN DIALOGUE BOX -->
-<section
-    id="ownerManagement"
-    class="hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4"
->
-    <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-8 text-center">
+<!-- OWNER PHOTO MANAGEMENT -->
+<section class="py-6 bg-teal-50 border-y border-teal-100">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+  <!-- PRIVATE OWNER LOGIN PANEL -->
+<section id="ownerManagement" class="hidden">
+    <div id="ownerLogin">
+        <h3>Portfolio Owner</h3>
+        <p>Sign in to manage your photos.</p>
 
-        <!-- Login Form -->
-        <div id="ownerLogin">
-            <h3 class="text-xl font-bold text-slate-900">
-                Portfolio Owner
-            </h3>
-
-            <p class="text-sm text-slate-500 mt-2 mb-6">
-                Sign in to manage your portfolio photos.
-            </p>
-
-            <form id="loginForm" class="space-y-4">
-
-                <input
-                    type="email"
-                    id="ownerEmail"
-                    placeholder="Email address"
-                    required
-                    class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500"
-                >
-
-                <input
-                    type="password"
-                    id="ownerPassword"
-                    placeholder="Password"
-                    required
-                    class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500"
-                >
-
-                <button
-                    type="submit"
-                    class="w-full py-3 rounded-lg bg-brand-700 text-white font-semibold hover:bg-brand-800"
-                >
-                    Sign In
-                </button>
-
-            </form>
-        </div>
-
-        <!-- Signed-In View -->
-        <div id="ownerSignedIn" class="hidden">
-            <h3 class="text-xl font-bold text-brand-700">
-                You are signed in!
-            </h3>
-
-            <p class="text-sm text-slate-500 my-4">
-                You can now manage your portfolio photos.
-            </p>
-
-            <button
-                id="logoutButton"
-                type="button"
-                class="px-6 py-2 rounded-lg bg-slate-800 text-white hover:bg-slate-700"
+        <form id="loginForm">
+            <input
+                type="email"
+                id="ownerEmail"
+                placeholder="Email"
+                required
             >
-                Sign Out
-            </button>
-        </div>
 
-        <p
-            id="uploadStatus"
-            class="text-sm text-slate-500 mt-4"
-        ></p>
+            <input
+                type="password"
+                id="ownerPassword"
+                placeholder="Password"
+                required
+            >
 
-    </div>
-</section>
+          </div>
+    <!-- PORTFOLIO PHOTO CARDS (Interactive LocalStorage Gallery) -->
+    <section id="portfolio" class="py-20 bg-white border-y border-slate-200/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-brand-600">Visual Evidence</h2>
+                <h3 class="text-3xl font-extrabold text-slate-900 mt-2">Interactive Classroom & Lab Portfolio</h3>
+                <p class="text-sm text-slate-500 mt-2">Sign in to upload or update your photos. Images are stored securely in cloud storage and displayed whenever visitors open your portfolio.</p>
+            </div>
+
             <!-- 6 Interactive Photo Holders -->
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 
@@ -664,25 +627,9 @@
     </section>
 
     <!-- FOOTER -->
-<!-- FOOTER -->
-<footer class="bg-slate-900 text-slate-300 py-8 text-center">
-    <div class="max-w-7xl mx-auto px-4">
-
-        <p class="text-sm">
-            © <span id="currentYear"></span>
-            Leilanie Grace Abuloc. All rights reserved.
-        </p>
-
-        <button
-            id="ownerAccessButton"
-            type="button"
-            class="mt-4 px-4 py-2 rounded-lg border border-teal-500 text-teal-400 text-sm hover:bg-teal-900 transition-colors"
-        >
-            Owner Access
-        </button>
-
-    </div>
-</footer>
+  <button id="ownerAccessButton" class="owner-access-btn">
+    Owner Access
+</button>
     </footer>
 
     <!-- JAVASCRIPT LOGIC (LOCALSTORAGE & INTERACTION) -->
@@ -725,127 +672,68 @@
         if (uploadStatus) uploadStatus.textContent = message;
     }
 
-// ==========================================
-// OWNER ACCESS DIALOGUE
-// ==========================================
+    // ==========================================
+    // SIGN-IN AND SIGN-OUT
+    // ==========================================
 
-const ownerManagement = document.getElementById("ownerManagement");
-const ownerLogin = document.getElementById("ownerLogin");
-const ownerSignedIn = document.getElementById("ownerSignedIn");
-const ownerAccessButton = document.getElementById("ownerAccessButton");
+    const ownerLogin = document.getElementById("ownerLogin");
+    const ownerSignedIn = document.getElementById("ownerSignedIn");
 
-function updateLoginDisplay() {
+  function updateLoginDisplay() {
+    const ownerLogin = document.getElementById("ownerLogin");
+    const ownerSignedIn = document.getElementById("ownerSignedIn");
+    const ownerAccessButton = document.getElementById("ownerAccessButton");
 
-    // Update owner login display
-    ownerLogin.classList.toggle("hidden", !!currentUser);
-    ownerSignedIn.classList.toggle("hidden", !currentUser);
-
-    // Show or hide the profile photo Remove button
-    const profileRemoveButton = document.getElementById("removeProfileBtn");
-
-    if (profileRemoveButton) {
-        profileRemoveButton.classList.toggle("hidden", !currentUser);
-    }
-
-    // Show or hide all six portfolio Remove buttons
-    for (let i = 1; i <= 6; i++) {
-
-        const removeButton = document.getElementById(
-            btn_remove_card_${i}
-        );
-
-        if (removeButton) {
-            removeButton.classList.toggle("hidden", !currentUser);
-        }
+    if (currentUser) {
+        ownerLogin?.classList.add("hidden");
+        ownerSignedIn?.classList.remove("hidden");
+        ownerAccessButton?.classList.remove("hidden");
+    } else {
+        ownerLogin?.classList.add("hidden");
+        ownerSignedIn?.classList.add("hidden");
+        ownerAccessButton?.classList.remove("hidden");
     }
 }
 
-// Sign in
-document.getElementById("loginForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        showStatus("Signing in...");
 
-    showStatus("Signing in...");
+        const email = document.getElementById("ownerEmail").value;
+        const password = document.getElementById("ownerPassword").value;
 
-    const email = document.getElementById("ownerEmail").value;
-    const password = document.getElementById("ownerPassword").value;
-
-    const { data, error } = await supabaseClient.auth.signInWithPassword({
-        email,
-        password
-    });
-
-    if (error) {
-        showStatus("Sign-in failed: " + error.message);
-        return;
-    }
-
-    currentUser = data.user;
-
-    document.getElementById("ownerPassword").value = "";
-
-    updateLoginDisplay();
-
-    // Close dialogue after successful login
-    ownerManagement.classList.add("hidden");
-
-    await loadAllPortfolioPhotos();
-
-    showStatus("Successfully signed in!");
-});
-
-// ==========================================
-// SIGN OUT
-// ==========================================
-
-document.getElementById("logoutButton").addEventListener("click", async () => {
-
-    const logoutButton = document.getElementById("logoutButton");
-
-    logoutButton.disabled = true;
-    logoutButton.textContent = "Signing out...";
-
-    try {
-        const { error } = await supabaseClient.auth.signOut({
-            scope: "local"
+        const { data, error } = await supabaseClient.auth.signInWithPassword({
+            email,
+            password
         });
 
         if (error) {
-            throw error;
+            showStatus("Sign-in failed: " + error.message);
+            return;
         }
 
-        // Immediately update the website
+        currentUser = data.user;
+updateLoginDisplay();
+showStatus("You're signed in! You can now manage your photos.");
+    });
+
+    document.getElementById("logoutButton").addEventListener("click", async () => {
+        const { error } = await supabaseClient.auth.signOut();
+
+        if (error) {
+            showStatus("Sign-out failed: " + error.message);
+            return;
+        }
+
         currentUser = null;
-
         updateLoginDisplay();
+        showStatus("You have signed out.");
+    });
 
-        // Close the login dialogue
-        ownerManagement.classList.add("hidden");
-
-        // Clear password field
-        document.getElementById("ownerPassword").value = "";
-
-        showStatus("You have successfully signed out.");
-
-    } catch (error) {
-        console.error("Sign-out error:", error);
-        showStatus("Could not sign out: " + error.message);
-
-    } finally {
-        logoutButton.disabled = false;
-        logoutButton.textContent = "Sign Out";
-    }
-});
-// ==========================================
-// SUPABASE AUTHENTICATION LISTENER
-// ==========================================
-
-supabaseClient.auth.onAuthStateChange((_event, session) => {
-
-    currentUser = session?.user || null;
-
-    updateLoginDisplay();
-
-});
+    supabaseClient.auth.onAuthStateChange((_event, session) => {
+        currentUser = session?.user || null;
+        updateLoginDisplay();
+    });
 
     // ==========================================
     // PHOTO DISPLAY
@@ -873,9 +761,9 @@ supabaseClient.auth.onAuthStateChange((_event, session) => {
     }
 
     function renderCardPhoto(cardId, url) {
-        const image = document.getElementById(img_${cardId});
-        const placeholder = document.getElementById(placeholder_${cardId});
-        const removeButton = document.getElementById(btn_remove_${cardId});
+        const image = document.getElementById(`img_${cardId}`);
+        const placeholder = document.getElementById(`placeholder_${cardId}`);
+        const removeButton = document.getElementById(`btn_remove_${cardId}`);
 
         if (!image || !placeholder) return;
 
@@ -889,9 +777,9 @@ supabaseClient.auth.onAuthStateChange((_event, session) => {
     }
 
     function clearCardPhoto(cardId) {
-        const image = document.getElementById(img_${cardId});
-        const placeholder = document.getElementById(placeholder_${cardId});
-        const removeButton = document.getElementById(btn_remove_${cardId});
+        const image = document.getElementById(`img_${cardId}`);
+        const placeholder = document.getElementById(`placeholder_${cardId}`);
+        const removeButton = document.getElementById(`btn_remove_${cardId}`);
 
         if (image) {
             image.src = "";
@@ -920,7 +808,7 @@ supabaseClient.auth.onAuthStateChange((_event, session) => {
         clearHeroPhoto();
 
         for (let i = 1; i <= 6; i++) {
-            clearCardPhoto(card_${i});
+            clearCardPhoto(`card_${i}`);
         }
 
         data.forEach((photo) => {
@@ -963,7 +851,7 @@ supabaseClient.auth.onAuthStateChange((_event, session) => {
                 .replace(/[^a-z0-9]/g, "") || "jpg";
 
             const storagePath =
-                ${currentUser.id}/${slot}.${extension};
+                `${currentUser.id}/${slot}.${extension}`;
 
             // Remember the previous file so it can be removed after replacement
             const { data: previous } = await supabaseClient
@@ -1085,7 +973,7 @@ profileImage?.addEventListener("click", () => {
             return;
         }
 
-        document.getElementById(input_${cardId}).click();
+        document.getElementById(`input_${cardId}`).click();
     };
 
     window.handleCardUpload = async function(event, cardId) {
@@ -1166,25 +1054,22 @@ profileImage?.addEventListener("click", () => {
     // START WEBSITE
     // ==========================================
 
-async function initializePortfolio() {
-    try {
-        const { data, error } = await supabaseClient.auth.getSession();
+            if (error) throw error;
 
-        if (error) throw error;
+            currentUser = data.session?.user || null;
 
-        currentUser = data.session?.user || null;
+            updateLoginDisplay();
 
-        updateLoginDisplay();
+            await loadAllPortfolioPhotos();
 
-        await loadAllPortfolioPhotos();
-
-    } catch (error) {
-        console.error("Website initialization error:", error);
-        showStatus("Could not initialize website: " + error.message);
+        } catch (error) {
+            console.error("Website initialization error:", error);
+            showStatus("Could not initialize website: " + error.message);
+        }
     }
-}
 
-initializePortfolio();
-</script>
+    initializePortfolio();
+
+    </script>
 </body>
 </html>
