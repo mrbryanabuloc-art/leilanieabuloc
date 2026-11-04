@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -745,6 +746,23 @@
             alert('Thank you! Your message has been sent successfully.');
             e.target.reset();
         }
-    </script>
+    // ==========================================
+// SUPABASE CONNECTION
+// ==========================================
+
+const SUPABASE_URL = "https://hefngotuuzwuqwnboexz.supabase.co";
+
+// Replace this with your NEW Supabase publishable key.
+// Do not use your secret or service-role key.
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_QaSJ-zQc6QfOCFvxp01Wtg__xHg1plz";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
+
+console.log("Supabase connection initialized.");
+</script>
+       
 </body>
 </html>
