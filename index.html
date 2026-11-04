@@ -353,7 +353,49 @@
 <!-- OWNER PHOTO MANAGEMENT -->
 <section class="py-6 bg-teal-50 border-y border-teal-100">
     <div class="max-w-7xl mx-auto px-4 text-center">
-        <div id="ownerLogin" class="hidden">
+      ```html
+<!-- PRIVATE OWNER LOGIN PANEL -->
+<div id="ownerLogin" class="hidden max-w-md mx-auto my-6 p-6 bg-white border border-teal-100 rounded-2xl shadow-lg">
+
+    <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-semibold text-teal-800">
+            Owner Login
+        </h3>
+
+        <button id="closeOwnerLogin"
+            type="button"
+            class="text-slate-500 hover:text-red-600 text-xl"
+            aria-label="Close owner login">
+            &times;
+        </button>
+    </div>
+
+    <p class="text-sm text-slate-500 mb-4">
+        Sign in to manage your portfolio photos.
+    </p>
+
+    <form id="loginForm" class="flex flex-col gap-3">
+
+        <input id="ownerEmail"
+            type="email"
+            required
+            placeholder="Your email"
+            class="border rounded-lg px-3 py-2 text-sm">
+
+        <input id="ownerPassword"
+            type="password"
+            required
+            placeholder="Your password"
+            class="border rounded-lg px-3 py-2 text-sm">
+
+        <button type="submit"
+            class="bg-teal-700 hover:bg-teal-800 text-white rounded-lg px-4 py-2 text-sm">
+            Sign In
+        </button>
+
+    </form>
+</div>
+```
             <p class="text-sm text-slate-600 mb-3">
                 Portfolio owner? Sign in to manage your photos.
             </p>
@@ -689,10 +731,21 @@
     const ownerLogin = document.getElementById("ownerLogin");
     const ownerSignedIn = document.getElementById("ownerSignedIn");
 
-    function updateLoginDisplay() {
-        ownerLogin.classList.toggle("hidden", !!currentUser);
-        ownerSignedIn.classList.toggle("hidden", !currentUser);
+  function updateLoginDisplay() {
+    const ownerLogin = document.getElementById("ownerLogin");
+    const ownerSignedIn = document.getElementById("ownerSignedIn");
+    const ownerAccessButton = document.getElementById("ownerAccessButton");
+
+    if (currentUser) {
+        ownerLogin?.classList.add("hidden");
+        ownerSignedIn?.classList.remove("hidden");
+        ownerAccessButton?.classList.remove("hidden");
+    } else {
+        ownerLogin?.classList.add("hidden");
+        ownerSignedIn?.classList.add("hidden");
+        ownerAccessButton?.classList.remove("hidden");
     }
+}
 
     document.getElementById("loginForm").addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -1058,6 +1111,26 @@ profileImage?.addEventListener("click", () => {
 
         currentUser = data.session?.user || null;
         updateLoginDisplay();
+        ```javascript
+// PRIVATE OWNER LOGIN PANEL
+const ownerAccessButton =
+    document.getElementById("ownerAccessButton");
+
+const closeOwnerLogin =
+    document.getElementById("closeOwnerLogin");
+
+ownerAccessButton?.addEventListener("click", () => {
+    if (!currentUser) {
+        ownerLogin.classList.remove("hidden");
+        ownerAccessButton.classList.add("hidden");
+    }
+});
+
+closeOwnerLogin?.addEventListener("click", () => {
+    ownerLogin.classList.add("hidden");
+    ownerAccessButton.classList.remove("hidden");
+});
+```
 const ownerAccessButton =
     document.getElementById("ownerAccessButton");
 
@@ -1080,5 +1153,15 @@ ownerAccessButton?.addEventListener("click", () => {
         Owner Access
     </button>
 </div>      
+```html
+<!-- DISCREET OWNER ACCESS -->
+<div class="text-center py-5">
+    <button id="ownerAccessButton"
+        type="button"
+        class="text-xs text-slate-400 hover:text-teal-700 transition">
+        Owner Access
+    </button>
+</div>
+```
 </body>
 </html>
