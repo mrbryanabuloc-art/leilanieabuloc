@@ -350,82 +350,77 @@
             </div>
         </div>
     </section>
-// ==========================================
-// OWNER ACCESS DIALOGUE
-// ==========================================
+<!-- OWNER LOGIN DIALOGUE BOX -->
+<section
+    id="ownerManagement"
+    class="hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4"
+>
+    <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-8 text-center">
 
-const ownerManagement = document.getElementById("ownerManagement");
-const ownerLogin = document.getElementById("ownerLogin");
-const ownerSignedIn = document.getElementById("ownerSignedIn");
-const ownerAccessButton = document.getElementById("ownerAccessButton");
+        <!-- Login Form -->
+        <div id="ownerLogin">
+            <h3 class="text-xl font-bold text-slate-900">
+                Portfolio Owner
+            </h3>
 
-function updateLoginDisplay() {
-    ownerLogin.classList.toggle("hidden", !!currentUser);
-    ownerSignedIn.classList.toggle("hidden", !currentUser);
-}
+            <p class="text-sm text-slate-500 mt-2 mb-6">
+                Sign in to manage your portfolio photos.
+            </p>
 
-// Open dialogue when Owner Access is clicked
-ownerAccessButton.addEventListener("click", () => {
-    updateLoginDisplay();
-    ownerManagement.classList.remove("hidden");
-});
+            <form id="loginForm" class="space-y-4">
 
-// Sign in
-document.getElementById("loginForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
+                <input
+                    type="email"
+                    id="ownerEmail"
+                    placeholder="Email address"
+                    required
+                    class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                >
 
-    showStatus("Signing in...");
+                <input
+                    type="password"
+                    id="ownerPassword"
+                    placeholder="Password"
+                    required
+                    class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                >
 
-    const email = document.getElementById("ownerEmail").value;
-    const password = document.getElementById("ownerPassword").value;
+                <button
+                    type="submit"
+                    class="w-full py-3 rounded-lg bg-brand-700 text-white font-semibold hover:bg-brand-800"
+                >
+                    Sign In
+                </button>
 
-    const { data, error } = await supabaseClient.auth.signInWithPassword({
-        email,
-        password
-    });
+            </form>
+        </div>
 
-    if (error) {
-        showStatus("Sign-in failed: " + error.message);
-        return;
-    }
+        <!-- Signed-In View -->
+        <div id="ownerSignedIn" class="hidden">
+            <h3 class="text-xl font-bold text-brand-700">
+                You are signed in!
+            </h3>
 
-    currentUser = data.user;
+            <p class="text-sm text-slate-500 my-4">
+                You can now manage your portfolio photos.
+            </p>
 
-    document.getElementById("ownerPassword").value = "";
+            <button
+                id="logoutButton"
+                type="button"
+                class="px-6 py-2 rounded-lg bg-slate-800 text-white hover:bg-slate-700"
+            >
+                Sign Out
+            </button>
+        </div>
 
-    updateLoginDisplay();
+        <p
+            id="uploadStatus"
+            class="text-sm text-slate-500 mt-4"
+        ></p>
 
-    // Close dialogue after successful login
-    ownerManagement.classList.add("hidden");
-
-    await loadAllPortfolioPhotos();
-
-    showStatus("Successfully signed in!");
-});
-
-// Sign out
-document.getElementById("logoutButton").addEventListener("click", async () => {
-    const { error } = await supabaseClient.auth.signOut();
-
-    if (error) {
-        showStatus("Sign-out failed: " + error.message);
-        return;
-    }
-
-    currentUser = null;
-
-    updateLoginDisplay();
-
-    ownerManagement.classList.add("hidden");
-
-    showStatus("You have signed out.");
-});
-
-// Synchronize login state with Supabase
-supabaseClient.auth.onAuthStateChange((_event, session) => {
-    currentUser = session?.user || null;
-    updateLoginDisplay();
-});
+    </div>
+</section>
             <!-- 6 Interactive Photo Holders -->
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 
