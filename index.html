@@ -820,13 +820,18 @@ document.getElementById("logoutButton").addEventListener("click", async () => {
         logoutButton.textContent = "Sign Out";
     }
 });
-        supabaseClient.auth.onAuthStateChange((_event, session) => {
+// ==========================================
+// SUPABASE AUTHENTICATION LISTENER
+// ==========================================
+
+supabaseClient.auth.onAuthStateChange((_event, session) => {
 
     currentUser = session?.user || null;
 
     updateLoginDisplay();
 
 });
+
     // ==========================================
     // PHOTO DISPLAY
     // ==========================================
