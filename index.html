@@ -1158,13 +1158,6 @@ async function initializePortfolio() {
 }
 
 initializePortfolio();
-supabaseClient.auth.onAuthStateChange((_event, session) => {
-
-    currentUser = session?.user || null;
-
-    updateLoginDisplay();
-
-});
 </script>
 </body>
 </html>
