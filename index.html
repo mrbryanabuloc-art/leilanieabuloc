@@ -1106,62 +1106,22 @@ profileImage?.addEventListener("click", () => {
     // START WEBSITE
     // ==========================================
 
-    async function initializePortfolio() {
-        const { data } = await supabaseClient.auth.getSession();
+            if (error) throw error;
 
-        currentUser = data.session?.user || null;
-        updateLoginDisplay();
-        ```javascript
-// PRIVATE OWNER LOGIN PANEL
-const ownerAccessButton =
-    document.getElementById("ownerAccessButton");
+            currentUser = data.session?.user || null;
 
-const closeOwnerLogin =
-    document.getElementById("closeOwnerLogin");
+            updateLoginDisplay();
 
-ownerAccessButton?.addEventListener("click", () => {
-    if (!currentUser) {
-        ownerLogin.classList.remove("hidden");
-        ownerAccessButton.classList.add("hidden");
-    }
-});
+            await loadAllPortfolioPhotos();
 
-closeOwnerLogin?.addEventListener("click", () => {
-    ownerLogin.classList.add("hidden");
-    ownerAccessButton.classList.remove("hidden");
-});
-```
-const ownerAccessButton =
-    document.getElementById("ownerAccessButton");
-
-ownerAccessButton?.addEventListener("click", () => {
-    if (!currentUser) {
-        ownerLogin.classList.remove("hidden");
-    }
-});
-        await loadAllPortfolioPhotos();
+        } catch (error) {
+            console.error("Website initialization error:", error);
+            showStatus("Could not initialize website: " + error.message);
+        }
     }
 
     initializePortfolio();
-</script>
-</script>
- <!-- Private Owner Access -->
-<div class="text-center py-4">
-    <button id="ownerAccessButton"
-        type="button"
-        class="text-xs text-slate-400 hover:text-teal-700">
-        Owner Access
-    </button>
-</div>      
-```html
-<!-- DISCREET OWNER ACCESS -->
-<div class="text-center py-5">
-    <button id="ownerAccessButton"
-        type="button"
-        class="text-xs text-slate-400 hover:text-teal-700 transition">
-        Owner Access
-    </button>
-</div>
-```
+
+    </script>
 </body>
 </html>
