@@ -712,9 +712,8 @@
         }
 
         currentUser = data.user;
-        updateLoginDisplay();
-        await loadAllPortfolioPhotos();
-        showStatus("Signed in. You can now manage your photos.");
+updateLoginDisplay();
+showStatus("You're signed in! You can now manage your photos.");
     });
 
     document.getElementById("logoutButton").addEventListener("click", async () => {
@@ -917,7 +916,13 @@
 
     const profileHolder = document.getElementById("profileHolder");
     const profileInput = document.getElementById("profileInput");
+const profileImageHolder = document.getElementById("profileImageHolder");
 
+if (profileImageHolder) {
+    profileImageHolder.addEventListener("click", () => {
+        profileInput.click();
+    });
+}
     profileHolder.addEventListener("click", () => {
         if (!currentUser) {
             showStatus("Please sign in to change your profile photo.");
@@ -926,7 +931,18 @@
 
         profileInput.click();
     });
+// Open photo picker when the placeholder is clicked
+const profilePlaceholder = document.getElementById("profilePlaceholder");
+const profileImage = document.getElementById("profileImage");
 
+profilePlaceholder.addEventListener("click", () => {
+    profileInput.click();
+});
+
+// Allow clicking an existing photo to replace it
+profileImage.addEventListener("click", () => {
+    profileInput.click();
+});
     profileInput.addEventListener("change", async (e) => {
         const file = e.target.files[0];
 
