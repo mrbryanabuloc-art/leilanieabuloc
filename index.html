@@ -1,1001 +1,1190 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Leilanie Grace A. Abuloc | Science Teacher</title>
-  <meta name="description" content="Professional teaching portfolio of Leilanie Grace A. Abuloc, Science Teacher.">
-
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <style>
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: Arial, sans-serif;
-      background: #faf8f0;
-      color: #183d32;
-    }
-    .emerald { background-color: #064e3b; }
-    .cream { background-color: #faf8f0; }
-    .section-title {
-      color: #064e3b;
-      font-size: 2rem;
-      font-weight: 800;
-      margin-bottom: 1rem;
-    }
-    .photo-card {
-      position: relative;
-      overflow: hidden;
-      border-radius: 16px;
-      background: #e8eee7;
-      min-height: 220px;
-      border: 2px dashed #a7b9aa;
-    }
-    .photo-card img {
-      width: 100%;
-      height: 240px;
-      object-fit: cover;
-      display: block;
-    }
-    .photo-placeholder {
-      min-height: 220px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      padding: 20px;
-      text-align: center;
-      color: #557365;
-    }
-    .owner-control {
-      position: absolute;
-      bottom: 12px;
-      right: 12px;
-      z-index: 5;
-    }
-    .modal-backdrop {
-      background: rgba(0,0,0,.65);
-    }
-    button:disabled {
-      opacity: .6;
-      cursor: not-allowed;
-    }
-    [hidden] { display: none !important; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leilanie Grace Abuloc | Science Educator</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
+                        },
+                        navy: {
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .upload-dashed {
+            background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='12' ry='12' stroke='%23CBD5E1FF' stroke-width='2' stroke-dasharray='8%2c 8' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+        }
+        .upload-dashed:hover {
+            background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='12' ry='12' stroke='%230D9488FF' stroke-width='2' stroke-dasharray='8%2c 8' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+        }
+    </style>
 </head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-teal-500 selection:text-white">
 
-<body>
+    <!-- NAVIGATION BAR -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-sm transition-all duration-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="#top" class="text-xl font-bold tracking-tight text-slate-900 hover:text-brand-600 transition-colors flex items-center gap-2">
+                <span class="w-8 h-8 rounded-lg bg-brand-600 text-white flex items-center justify-center font-black text-sm shadow-sm">LA</span>
+                <span>Leilanie Grace Abuloc</span>
+            </a>
+            
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-600">
+                <a href="#about" class="hover:text-brand-600 transition-colors">About</a>
+                <a href="#experience" class="hover:text-brand-600 transition-colors">Experience</a>
+                <a href="#skills" class="hover:text-brand-600 transition-colors">Skills & Tech</a>
+                <a href="#credentials" class="hover:text-brand-600 transition-colors">Credentials</a>
+                <a href="#portfolio" class="hover:text-brand-600 transition-colors">Portfolio</a>
+                <a href="#awards" class="hover:text-brand-600 transition-colors">Awards</a>
+                <a href="#contact" class="px-4 py-2 rounded-lg bg-brand-600 text-white font-medium hover:bg-brand-700 transition-colors shadow-sm">Contact Me</a>
+            </nav>
 
-<!-- NAVIGATION -->
-<header class="emerald text-white sticky top-0 z-40 shadow-lg">
-  <nav class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-    <a href="#home" class="font-bold text-lg">
-      Leilanie Grace A. Abuloc
-    </a>
-
-    <div class="hidden md:flex gap-6 text-sm">
-      <a href="#about" class="hover:text-yellow-200">About</a>
-      <a href="#experience" class="hover:text-yellow-200">Experience</a>
-      <a href="#education" class="hover:text-yellow-200">Education</a>
-      <a href="#skills" class="hover:text-yellow-200">Skills</a>
-      <a href="#portfolio" class="hover:text-yellow-200">Portfolio</a>
-      <a href="#contact" class="hover:text-yellow-200">Contact</a>
-    </div>
-
-    <button id="mobileMenuButton" class="md:hidden border border-white rounded px-3 py-2">
-      Menu
-    </button>
-  </nav>
-
-  <div id="mobileMenu" class="hidden md:hidden px-6 pb-4 flex flex-col gap-3">
-    <a href="#about">About</a>
-    <a href="#experience">Experience</a>
-    <a href="#education">Education</a>
-    <a href="#skills">Skills</a>
-    <a href="#portfolio">Portfolio</a>
-    <a href="#contact">Contact</a>
-  </div>
-</header>
-
-<!-- HERO -->
-<section id="home" class="emerald text-white">
-  <div class="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center">
-
-    <div>
-      <p class="uppercase tracking-widest text-yellow-200 font-semibold mb-4">
-        Professional Teaching Portfolio
-      </p>
-
-      <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
-        Leilanie Grace A. Abuloc
-      </h1>
-
-      <h2 class="text-2xl text-yellow-100 font-semibold mb-6">
-        Science Teacher
-      </h2>
-
-      <p class="text-lg leading-relaxed text-green-50 mb-8">
-        Inspiring curiosity, encouraging scientific exploration, and
-        empowering learners to understand the world through science.
-      </p>
-
-      <div class="flex flex-wrap gap-4">
-        <a href="#about"
-           class="bg-yellow-100 text-green-900 font-bold px-6 py-3 rounded-lg hover:bg-white">
-          Explore My Portfolio
-        </a>
-
-        <a href="#contact"
-           class="border border-white px-6 py-3 rounded-lg hover:bg-white hover:text-green-900">
-          Contact Me
-        </a>
-      </div>
-    </div>
-
-    <!-- PROFILE PHOTO -->
-    <div class="flex justify-center">
-      <div id="profileHolder"
-           class="relative w-72 h-80 md:w-80 md:h-96 rounded-3xl overflow-hidden
-                  border-4 border-yellow-100 bg-green-900 shadow-2xl">
-
-        <img id="profileImage"
-             class="hidden w-full h-full object-cover"
-             alt="Leilanie Grace A. Abuloc">
-
-        <div id="profilePlaceholder"
-             class="w-full h-full flex flex-col items-center justify-center text-center p-6">
-          <div class="text-6xl mb-5">👩‍🏫</div>
-          <p class="font-bold text-xl">Professional Portrait</p>
-          <p class="text-green-100 text-sm mt-2">
-            Profile photograph
-          </p>
-          <p id="profileUploadHint" class="text-yellow-200 text-xs mt-4 hidden">
-            Click here to upload your profile photo
-          </p>
+            <!-- Mobile Menu Button -->
+            <button id="mobileMenuBtn" class="md:hidden p-2 rounded-md text-slate-600 hover:text-slate-900 focus:outline-none">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
         </div>
 
-        <button id="removeProfileBtn"
+        <!-- Mobile Menu dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden border-b border-slate-200 bg-white px-4 pt-2 pb-4 space-y-2 text-sm font-medium">
+            <a href="#about" class="block py-2 text-slate-600 hover:text-brand-600">About</a>
+            <a href="#experience" class="block py-2 text-slate-600 hover:text-brand-600">Experience</a>
+            <a href="#skills" class="block py-2 text-slate-600 hover:text-brand-600">Skills & Tech</a>
+            <a href="#credentials" class="block py-2 text-slate-600 hover:text-brand-600">Credentials</a>
+            <a href="#portfolio" class="block py-2 text-slate-600 hover:text-brand-600">Portfolio</a>
+            <a href="#awards" class="block py-2 text-slate-600 hover:text-brand-600">Awards</a>
+            <a href="#contact" class="block py-2 text-brand-600 font-semibold">Contact Me</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="top" class="relative pt-12 pb-20 lg:pt-20 lg:pb-28 bg-gradient-to-b from-teal-50/50 to-slate-50 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Hero Content -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-100/70 border border-brand-200 text-brand-800 text-xs font-semibold uppercase tracking-wider">
+                        <span>🧪 Science Educator • Grades 9–12</span>
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                        Teaching science with <span class="text-brand-600">curiosity</span>, rigor & care.
+                    </h1>
+                    <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                        Dedicated Science Educator with 13 years of teaching experience—10 years in the Philippines and 3 years in U.S. classrooms. Specializing in Chemistry, Physical Science, and Earth & Environmental Science.
+                    </p>
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="#experience" class="px-6 py-3.5 rounded-xl bg-brand-600 text-white font-semibold shadow-lg shadow-brand-600/30 hover:bg-brand-700 transition-all hover:-translate-y-0.5">
+                            View Experience
+                        </a>
+                        <a href="#contact" class="px-6 py-3.5 rounded-xl bg-white text-slate-700 border border-slate-300 font-semibold shadow-sm hover:bg-slate-50 transition-all">
+                            Get In Touch
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Profile Photo Header Holder -->
+                <div class="lg:col-span-5 flex flex-col items-center">
+                    <div class="relative group w-72 h-80 sm:w-80 sm:h-96 rounded-2xl bg-white p-3 shadow-xl border border-slate-200/80 transition-all">
+                        
+                        <!-- Photo Container -->
+                        <div id="profileHolder" class="w-full h-full rounded-xl overflow-hidden bg-slate-100 flex flex-col items-center justify-center text-center cursor-pointer relative upload-dashed group-hover:border-brand-500 transition-colors">
+                            
+                            <!-- Placeholder View -->
+                            <div id="profilePlaceholder" class="p-6 flex flex-col items-center justify-center space-y-3">
+                                <div class="w-16 h-16 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center shadow-inner">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-700">Upload Educator Photo</p>
+                                    <p class="text-xs text-slate-400 mt-1">Click to browse photo from your device</p>
+                                </div>
+                            </div>
+
+                            <!-- Display Image View -->
+                            <img id="profileImage" src="" alt="Leilanie Grace Abuloc" class="w-full h-full object-cover hidden rounded-xl" />
+                        </div>
+
+                        <!-- Hidden File Input -->
+                        <input type="file" id="profileInput" accept="image/*" class="hidden" /> 
+                        <button id="removeProfileBtn" type="button"
+    class="hidden mt-2 text-sm text-red-600 hover:underline">
+    Remove profile photo
+</button>
+                    </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION & STATS -->
+    <section id="about" class="py-16 bg-white border-y border-slate-200/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center space-y-4">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-brand-600">About Educator</h2>
+                <h3 class="text-3xl font-extrabold text-slate-900">An educator rooted in inquiry, passion & structure.</h3>
+                <p class="text-slate-600 leading-relaxed text-base sm:text-lg">
+                    With over a decade of dedication to scientific literacy, my instructional philosophy centers on hands-on laboratory experiences, culturally responsive pedagogy, and data-driven learning strategies that empower students across diverse learning spectrums.
+                </p>
+            </div>
+
+            <!-- Stats Counters -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 text-center">
+                    <span class="block text-4xl font-extrabold text-brand-600">13+</span>
+                    <span class="text-sm font-medium text-slate-600 mt-1 block">Years Teaching</span>
+                </div>
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 text-center">
+                    <span class="block text-4xl font-extrabold text-slate-900">10</span>
+                    <span class="text-sm font-medium text-slate-600 mt-1 block">Years in Philippines</span>
+                </div>
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 text-center">
+                    <span class="block text-4xl font-extrabold text-brand-600">3</span>
+                    <span class="text-sm font-medium text-slate-600 mt-1 block">Years in U.S. Schools</span>
+                </div>
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 text-center">
+                    <span class="block text-4xl font-extrabold text-slate-900">25–35</span>
+                    <span class="text-sm font-medium text-slate-600 mt-1 block">Avg Class Size</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE SECTION -->
+    <section id="experience" class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-brand-600">Teaching Journey</h2>
+                <h3 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2">Professional Experience</h3>
+            </div>
+
+            <div class="max-w-4xl mx-auto relative border-l-2 border-brand-200 pl-6 sm:pl-10 space-y-12">
+                
+                <!-- Position 1 -->
+                <div class="relative group">
+                    <div class="absolute -left-[31px] sm:-left-[47px] top-1.5 w-5 h-5 rounded-full bg-brand-600 border-4 border-white shadow"></div>
+                    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                            <span class="px-3 py-1 rounded-full bg-brand-50 text-brand-700 text-xs font-bold">2023 – Present</span>
+                            <span class="text-xs font-medium text-slate-500">North Carolina, USA</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-slate-900">High School Science Teacher</h4>
+                        <h5 class="text-sm font-semibold text-brand-600 mb-4">Smithfield-Selma Senior High School</h5>
+                        <ul class="space-y-2 text-sm text-slate-600 list-disc list-inside leading-relaxed">
+                            <li>Teaches Physical Science and Earth & Environmental Science to 9th–12th graders.</li>
+                            <li>Designs structured lab investigations aligned with North Carolina Standard Course of Study.</li>
+                            <li>Integrates digital learning platforms and differentiated strategies for ESL & diverse learners.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Position 2 -->
+                <div class="relative group">
+                    <div class="absolute -left-[31px] sm:-left-[47px] top-1.5 w-5 h-5 rounded-full bg-slate-300 group-hover:bg-brand-600 border-4 border-white shadow transition-colors"></div>
+                    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                            <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-bold">2019 – 2023</span>
+                            <span class="text-xs font-medium text-slate-500">Surigao del Sur, Philippines</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-slate-900">Master Teacher / Science Educator</h4>
+                        <h5 class="text-sm font-semibold text-brand-600 mb-4">Jacinto P. Elpa National High School</h5>
+                        <ul class="space-y-2 text-sm text-slate-600 list-disc list-inside leading-relaxed">
+                            <li>Instructed Senior High School Chemistry, General Science, and Research methods.</li>
+                            <li>Mentored junior science teachers and evaluated curriculum implementation school-wide.</li>
+                            <li>Coached regional science fair competitions, earning top division ranks.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Position 3 -->
+                <div class="relative group">
+                    <div class="absolute -left-[31px] sm:-left-[47px] top-1.5 w-5 h-5 rounded-full bg-slate-300 group-hover:bg-brand-600 border-4 border-white shadow transition-colors"></div>
+                    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                            <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-bold">2018 – 2019</span>
+                            <span class="text-xs font-medium text-slate-500">Chongqing, China</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-slate-900">Foreign English & Science Specialist</h4>
+                        <h5 class="text-sm font-semibold text-brand-600 mb-4">BeiBei Guolan Central Kindergarten</h5>
+                        <ul class="space-y-2 text-sm text-slate-600 list-disc list-inside leading-relaxed">
+                            <li>Delivered immersive early-learning science and language experiences for young learners.</li>
+                            <li>Adapted cross-cultural communication techniques for bilingual classrooms.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Position 4 -->
+                <div class="relative group">
+                    <div class="absolute -left-[31px] sm:-left-[47px] top-1.5 w-5 h-5 rounded-full bg-slate-300 group-hover:bg-brand-600 border-4 border-white shadow transition-colors"></div>
+                    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                            <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-bold">2013 – 2017</span>
+                            <span class="text-xs font-medium text-slate-500">Surigao del Sur, Philippines</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-slate-900">Secondary High School Teacher</h4>
+                        <h5 class="text-sm font-semibold text-brand-600 mb-4">Jacinto P. Elpa National High School</h5>
+                        <ul class="space-y-2 text-sm text-slate-600 list-disc list-inside leading-relaxed">
+                            <li>Handled Grade 9 & 10 Integrated Science and Chemistry.</li>
+                            <li>Organized annual school-wide Science Month competitions and lab exhibits.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS & TOOLS SECTION -->
+    <section id="skills" class="py-20 bg-white border-y border-slate-200/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-brand-600">Competencies</h2>
+                <h3 class="text-3xl font-extrabold text-slate-900 mt-2">Strengths & Educational Tech</h3>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Pedagogical Strengths -->
+                <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200/80">
+                    <h4 class="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
+                        <span>💡</span> Pedagogical & Core Skills
+                    </h4>
+                    <div class="flex flex-wrap gap-2.5">
+                        <span class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-sm font-semibold text-slate-700 shadow-sm">Inquiry-Based Learning</span>
+                        <span class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-sm font-semibold text-slate-700 shadow-sm">Chemistry Lab Safety & Experiments</span>
+                        <span class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-sm font-semibold text-slate-700 shadow-sm">Differentiated Instruction</span>
+                        <span class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-sm font-semibold text-slate-700 shadow-sm">Classroom Management</span>
+                        <span class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-sm font-semibold text-slate-700 shadow-sm">Formative & Summative Assessment</span>
+                        <span class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-sm font-semibold text-slate-700 shadow-sm">ESL / ELL Accommodations</span>
+                        <span class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-sm font-semibold text-slate-700 shadow-sm">STEM Curriculum Mapping</span>
+                    </div>
+                </div>
+
+                <!-- Classroom Tools & Technology -->
+                <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200/80">
+                    <h4 class="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
+                        <span>💻</span> EdTech & Lab Tools
+                    </h4>
+                    <div class="flex flex-wrap gap-2.5">
+                        <span class="px-3.5 py-2 rounded-xl bg-brand-50 border border-brand-200 text-sm font-semibold text-brand-800 shadow-sm">Canvas LMS</span>
+                        <span class="px-3.5 py-2 rounded-xl bg-brand-50 border border-brand-200 text-sm font-semibold text-brand-800 shadow-sm">Google Classroom</span>
+                        <span class="px-3.5 py-2 rounded-xl bg-brand-50 border border-brand-200 text-sm font-semibold text-brand-800 shadow-sm">PhET Interactive Simulations</span>
+                        <span class="px-3.5 py-2 rounded-xl bg-brand-50 border border-brand-200 text-sm font-semibold text-brand-800 shadow-sm">Gizmos Virtual Labs</span>
+                        <span class="px-3.5 py-2 rounded-xl bg-brand-50 border border-brand-200 text-sm font-semibold text-brand-800 shadow-sm">Kahoot & Quizizz</span>
+                        <span class="px-3.5 py-2 rounded-xl bg-brand-50 border border-brand-200 text-sm font-semibold text-brand-800 shadow-sm">Data Analysis & Vernier Sensors</span>
+                        <span class="px-3.5 py-2 rounded-xl bg-brand-50 border border-brand-200 text-sm font-semibold text-brand-800 shadow-sm">Microsoft Office 365</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CREDENTIALS SECTION -->
+    <section id="credentials" class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-brand-600">Qualifications</h2>
+                <h3 class="text-3xl font-extrabold text-slate-900 mt-2">Degrees & Licensing</h3>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
+                    <div class="w-12 h-12 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-xl mb-4">🎓</div>
+                    <h4 class="font-bold text-slate-900">MA / MS Science Education</h4>
+                    <p class="text-xs text-brand-600 font-semibold mt-1">Complete Academic Requirement</p>
+                    <p class="text-xs text-slate-500 mt-2">Advanced studies in science curriculum development and educational methods.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
+                    <div class="w-12 h-12 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-xl mb-4">📜</div>
+                    <h4 class="font-bold text-slate-900">BSE General Science</h4>
+                    <p class="text-xs text-slate-500 font-semibold mt-1">Bachelor of Secondary Education</p>
+                    <p class="text-xs text-slate-500 mt-2">Comprehensive grounding in biological, chemical, and physical sciences instruction.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
+                    <div class="w-12 h-12 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-xl mb-4">🏛️</div>
+                    <h4 class="font-bold text-slate-900">NC Educator License</h4>
+                    <p class="text-xs text-brand-600 font-semibold mt-1">North Carolina License</p>
+                    <p class="text-xs text-slate-500 mt-2">Certified for High School Science (Comprehensive / Chemistry / Earth Science).</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
+                    <div class="w-12 h-12 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-xl mb-4">🏅</div>
+                    <h4 class="font-bold text-slate-900">PRC Teaching License</h4>
+                    <p class="text-xs text-slate-500 font-semibold mt-1">Professional Regulation Commission</p>
+                    <p class="text-xs text-slate-500 mt-2">Licensed Professional Teacher (LPT) in Secondary Science, Philippines.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- OWNER LOGIN DIALOGUE BOX -->
+<section
+    id="ownerManagement"
+    class="hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4"
+>
+    <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-8 text-center">
+
+        <!-- Login Form -->
+        <div id="ownerLogin">
+            <h3 class="text-xl font-bold text-slate-900">
+                Portfolio Owner
+            </h3>
+
+            <p class="text-sm text-slate-500 mt-2 mb-6">
+                Sign in to manage your portfolio photos.
+            </p>
+
+            <form id="loginForm" class="space-y-4">
+
+                <input
+                    type="email"
+                    id="ownerEmail"
+                    placeholder="Email address"
+                    required
+                    class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                >
+
+                <input
+                    type="password"
+                    id="ownerPassword"
+                    placeholder="Password"
+                    required
+                    class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                >
+
+                <button
+                    type="submit"
+                    class="w-full py-3 rounded-lg bg-brand-700 text-white font-semibold hover:bg-brand-800"
+                >
+                    Sign In
+                </button>
+
+            </form>
+        </div>
+
+        <!-- Signed-In View -->
+        <div id="ownerSignedIn" class="hidden">
+            <h3 class="text-xl font-bold text-brand-700">
+                You are signed in!
+            </h3>
+
+            <p class="text-sm text-slate-500 my-4">
+                You can now manage your portfolio photos.
+            </p>
+
+            <button
+                id="logoutButton"
                 type="button"
-                class="hidden absolute bottom-3 right-3 bg-red-600 text-white px-3 py-2 rounded-lg text-sm">
-          Remove Photo
-        </button>
-      </div>
+                class="px-6 py-2 rounded-lg bg-slate-800 text-white hover:bg-slate-700"
+            >
+                Sign Out
+            </button>
+        </div>
 
-      <input id="profileInput" type="file" accept="image/*" hidden>
-    </div>
-
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about" class="max-w-6xl mx-auto px-6 py-20">
-  <h2 class="section-title">About Me</h2>
-
-  <div class="bg-white rounded-2xl shadow-md p-8 leading-relaxed">
-    <p class="mb-4">
-      I am a dedicated Science Teacher with 13 years of teaching experience
-      across different educational settings. My teaching journey has
-      strengthened my commitment to creating engaging, inclusive, and
-      meaningful learning experiences.
-    </p>
-
-    <p class="mb-4">
-      I believe science education should encourage students to ask questions,
-      investigate ideas, think critically, and connect scientific concepts
-      to real-life situations.
-    </p>
-
-    <p>
-      My instructional approach emphasizes inquiry-based learning,
-      differentiated instruction, hands-on activities, laboratory safety,
-      and the effective use of educational technology.
-    </p>
-  </div>
-</section>
-
-<!-- EXPERIENCE -->
-<section id="experience" class="bg-green-50 py-20">
-  <div class="max-w-6xl mx-auto px-6">
-    <h2 class="section-title">Teaching Experience</h2>
-
-    <div class="space-y-6">
-
-      <div class="bg-white p-7 rounded-xl shadow-sm border-l-4 border-green-800">
-        <p class="text-sm text-green-700 font-bold">
-          AUGUST 2023 – PRESENT
-        </p>
-        <h3 class="text-xl font-bold mt-2">
-          Smithfield-Selma Senior High School
-        </h3>
-        <p class="font-semibold mt-1">Science Teacher | North Carolina, USA</p>
-        <ul class="list-disc ml-6 mt-4 space-y-2">
-          <li>Teach Honors and IB Chemistry.</li>
-          <li>Teach Physical Science.</li>
-          <li>Teach Earth and Environmental Science.</li>
-          <li>Support students in grades 9–12.</li>
-          <li>Design engaging lessons and inquiry-based activities.</li>
-        </ul>
-      </div>
-
-      <div class="bg-white p-7 rounded-xl shadow-sm border-l-4 border-green-800">
-        <h3 class="text-xl font-bold">Jacinto P. Elpa National High School</h3>
-        <p class="font-semibold mt-1">Science Teacher | Philippines</p>
-        <p class="mt-3">
-          Provided science instruction, developed learning materials,
-          and supported student learning and academic development.
-        </p>
-      </div>
-
-      <div class="bg-white p-7 rounded-xl shadow-sm border-l-4 border-green-800">
-        <h3 class="text-xl font-bold">BeiBei Guolan Central Kindergarten</h3>
-        <p class="font-semibold mt-1">Teaching Experience | China</p>
-        <p class="mt-3">
-          Supported early childhood learning through engaging,
-          developmentally appropriate educational activities.
-        </p>
-      </div>
+        <p
+            id="uploadStatus"
+            class="text-sm text-slate-500 mt-4"
+        ></p>
 
     </div>
-  </div>
 </section>
+            <!-- 6 Interactive Photo Holders -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Card 1 -->
+                <div class="bg-slate-50 rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm flex flex-col">
+                    <div class="h-64 relative group cursor-pointer upload-dashed bg-white m-3 rounded-xl overflow-hidden" onclick="triggerCardUpload('card_1')">
+                        <div id="placeholder_card_1" class="w-full h-full flex flex-col items-center justify-center p-4 text-center">
+                            <span class="text-3xl mb-2">🥼</span>
+                            <span class="font-bold text-slate-700 text-sm">Classroom / Lab Photo</span>
+                            <span class="text-xs text-slate-400 mt-1">Click to upload image</span>
+                        </div>
+                        <img id="img_card_1" src="" alt="Classroom Lab" class="hidden w-full h-full object-cover" />
+                    </div>
+                    <input type="file" id="input_card_1" accept="image/*" class="hidden" onchange="handleCardUpload(event, 'card_1')" />
+                    <div class="p-5 pt-2 flex items-center justify-between mt-auto border-t border-slate-100">
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm">Laboratory Setup</h4>
+                            <p class="text-xs text-slate-500">Experiments & hands-on inquiry</p>
+                        </div>
+                        <button id="btn_remove_card_1" onclick="removeCardPhoto('card_1')" class="hidden text-xs text-red-600 font-medium hover:underline">Remove</button>
+                    </div>
+                </div>
 
-<!-- EDUCATION -->
-<section id="education" class="max-w-6xl mx-auto px-6 py-20">
-  <h2 class="section-title">Education & Credentials</h2>
+                <!-- Card 2 -->
+                <div class="bg-slate-50 rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm flex flex-col">
+                    <div class="h-64 relative group cursor-pointer upload-dashed bg-white m-3 rounded-xl overflow-hidden" onclick="triggerCardUpload('card_2')">
+                        <div id="placeholder_card_2" class="w-full h-full flex flex-col items-center justify-center p-4 text-center">
+                            <span class="text-3xl mb-2">⚛️</span>
+                            <span class="font-bold text-slate-700 text-sm">Science Activity</span>
+                            <span class="text-xs text-slate-400 mt-1">Click to upload image</span>
+                        </div>
+                        <img id="img_card_2" src="" alt="Science Activity" class="hidden w-full h-full object-cover" />
+                    </div>
+                    <input type="file" id="input_card_2" accept="image/*" class="hidden" onchange="handleCardUpload(event, 'card_2')" />
+                    <div class="p-5 pt-2 flex items-center justify-between mt-auto border-t border-slate-100">
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm">Interactive Models</h4>
+                            <p class="text-xs text-slate-500">Student projects & demonstrations</p>
+                        </div>
+                        <button id="btn_remove_card_2" onclick="removeCardPhoto('card_2')" class="hidden text-xs text-red-600 font-medium hover:underline">Remove</button>
+                    </div>
+                </div>
 
-  <div class="grid md:grid-cols-2 gap-6">
+                <!-- Card 3 -->
+                <div class="bg-slate-50 rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm flex flex-col">
+                    <div class="h-64 relative group cursor-pointer upload-dashed bg-white m-3 rounded-xl overflow-hidden" onclick="triggerCardUpload('card_3')">
+                        <div id="placeholder_card_3" class="w-full h-full flex flex-col items-center justify-center p-4 text-center">
+                            <span class="text-3xl mb-2">🏆</span>
+                            <span class="font-bold text-slate-700 text-sm">Award / Competition</span>
+                            <span class="text-xs text-slate-400 mt-1">Click to upload image</span>
+                        </div>
+                        <img id="img_card_3" src="" alt="Award Competition" class="hidden w-full h-full object-cover" />
+                    </div>
+                    <input type="file" id="input_card_3" accept="image/*" class="hidden" onchange="handleCardUpload(event, 'card_3')" />
+                    <div class="p-5 pt-2 flex items-center justify-between mt-auto border-t border-slate-100">
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm">Science Fair Coaching</h4>
+                            <p class="text-xs text-slate-500">Student recognition & honors</p>
+                        </div>
+                        <button id="btn_remove_card_3" onclick="removeCardPhoto('card_3')" class="hidden text-xs text-red-600 font-medium hover:underline">Remove</button>
+                    </div>
+                </div>
 
-    <div class="bg-white rounded-xl shadow-sm p-7">
-      <div class="text-3xl mb-3">🎓</div>
-      <h3 class="font-bold text-xl">Master's Degree Studies</h3>
-      <p class="mt-2">
-        Master of Arts / Science in Science Education
-        — Academic Requirements
-      </p>
-    </div>
+                <!-- Card 4 -->
+                <div class="bg-slate-50 rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm flex flex-col">
+                    <div class="h-64 relative group cursor-pointer upload-dashed bg-white m-3 rounded-xl overflow-hidden" onclick="triggerCardUpload('card_4')">
+                        <div id="placeholder_card_4" class="w-full h-full flex flex-col items-center justify-center p-4 text-center">
+                            <span class="text-3xl mb-2">🔬</span>
+                            <span class="font-bold text-slate-700 text-sm">Student Research</span>
+                            <span class="text-xs text-slate-400 mt-1">Click to upload image</span>
+                        </div>
+                        <img id="img_card_4" src="" alt="Student Research" class="hidden w-full h-full object-cover" />
+                    </div>
+                    <input type="file" id="input_card_4" accept="image/*" class="hidden" onchange="handleCardUpload(event, 'card_4')" />
+                    <div class="p-5 pt-2 flex items-center justify-between mt-auto border-t border-slate-100">
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm">Research Presentation</h4>
+                            <p class="text-xs text-slate-500">Data collection & analysis</p>
+                        </div>
+                        <button id="btn_remove_card_4" onclick="removeCardPhoto('card_4')" class="hidden text-xs text-red-600 font-medium hover:underline">Remove</button>
+                    </div>
+                </div>
 
-    <div class="bg-white rounded-xl shadow-sm p-7">
-      <div class="text-3xl mb-3">📚</div>
-      <h3 class="font-bold text-xl">Bachelor's Degree</h3>
-      <p class="mt-2">
-        Bachelor of Secondary Education, General Science
-      </p>
-    </div>
+                <!-- Card 5 -->
+                <div class="bg-slate-50 rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm flex flex-col">
+                    <div class="h-64 relative group cursor-pointer upload-dashed bg-white m-3 rounded-xl overflow-hidden" onclick="triggerCardUpload('card_5')">
+                        <div id="placeholder_card_5" class="w-full h-full flex flex-col items-center justify-center p-4 text-center">
+                            <span class="text-3xl mb-2">🏫</span>
+                            <span class="font-bold text-slate-700 text-sm">School & Community</span>
+                            <span class="text-xs text-slate-400 mt-1">Click to upload image</span>
+                        </div>
+                        <img id="img_card_5" src="" alt="School Community" class="hidden w-full h-full object-cover" />
+                    </div>
+                    <input type="file" id="input_card_5" accept="image/*" class="hidden" onchange="handleCardUpload(event, 'card_5')" />
+                    <div class="p-5 pt-2 flex items-center justify-between mt-auto border-t border-slate-100">
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm">School Community Engagement</h4>
+                            <p class="text-xs text-slate-500">Extracurriculars & school events</p>
+                        </div>
+                        <button id="btn_remove_card_5" onclick="removeCardPhoto('card_5')" class="hidden text-xs text-red-600 font-medium hover:underline">Remove</button>
+                    </div>
+                </div>
 
-    <div class="bg-white rounded-xl shadow-sm p-7">
-      <div class="text-3xl mb-3">📜</div>
-      <h3 class="font-bold text-xl">North Carolina Teaching License</h3>
-      <p class="mt-2">Grades 6–12</p>
-    </div>
+                <!-- Card 6 -->
+                <div class="bg-slate-50 rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm flex flex-col">
+                    <div class="h-64 relative group cursor-pointer upload-dashed bg-white m-3 rounded-xl overflow-hidden" onclick="triggerCardUpload('card_6')">
+                        <div id="placeholder_card_6" class="w-full h-full flex flex-col items-center justify-center p-4 text-center">
+                            <span class="text-3xl mb-2">🌟</span>
+                            <span class="font-bold text-slate-700 text-sm">Professional Highlight</span>
+                            <span class="text-xs text-slate-400 mt-1">Click to upload image</span>
+                        </div>
+                        <img id="img_card_6" src="" alt="Professional Highlight" class="hidden w-full h-full object-cover" />
+                    </div>
+                    <input type="file" id="input_card_6" accept="image/*" class="hidden" onchange="handleCardUpload(event, 'card_6')" />
+                    <div class="p-5 pt-2 flex items-center justify-between mt-auto border-t border-slate-100">
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm">Faculty Workshop / Event</h4>
+                            <p class="text-xs text-slate-500">Professional growth & leadership</p>
+                        </div>
+                        <button id="btn_remove_card_6" onclick="removeCardPhoto('card_6')" class="hidden text-xs text-red-600 font-medium hover:underline">Remove</button>
+                    </div>
+                </div>
 
-    <div class="bg-white rounded-xl shadow-sm p-7">
-      <div class="text-3xl mb-3">🌏</div>
-      <h3 class="font-bold text-xl">Philippine Professional License</h3>
-      <p class="mt-2">Professional Regulation Commission (PRC)</p>
-    </div>
-
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills" class="bg-green-50 py-20">
-  <div class="max-w-6xl mx-auto px-6">
-    <h2 class="section-title">Teaching Skills & Technology</h2>
-
-    <div class="grid md:grid-cols-2 gap-8">
-
-      <div class="bg-white rounded-xl p-7 shadow-sm">
-        <h3 class="font-bold text-xl mb-4">Instructional Skills</h3>
-        <ul class="list-disc ml-6 space-y-2">
-          <li>Inquiry-Based Learning</li>
-          <li>Differentiated Instruction</li>
-          <li>Laboratory Safety</li>
-          <li>Lesson Planning and Curriculum Development</li>
-          <li>Student Engagement and Assessment</li>
-          <li>Scientific Investigation</li>
-        </ul>
-      </div>
-
-      <div class="bg-white rounded-xl p-7 shadow-sm">
-        <h3 class="font-bold text-xl mb-4">Educational Technology</h3>
-        <ul class="list-disc ml-6 space-y-2">
-          <li>Canvas</li>
-          <li>Google Classroom</li>
-          <li>ClassDojo</li>
-          <li>Kahoot and Blooket</li>
-          <li>PhET Interactive Simulations</li>
-          <li>Vernier</li>
-          <li>McGraw Hill</li>
-          <li>Actively Learn</li>
-        </ul>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- AWARDS -->
-<section class="max-w-6xl mx-auto px-6 py-20">
-  <h2 class="section-title">Achievements & Contributions</h2>
-
-  <div class="bg-white rounded-xl shadow-sm p-8">
-    <ul class="list-disc ml-6 space-y-3">
-      <li>Teaching awards and professional recognition.</li>
-      <li>Learning module writing and instructional material development.</li>
-      <li>Student coaching and academic support.</li>
-      <li>Professional collaboration and continuous development.</li>
-    </ul>
-  </div>
-</section>
-
-<!-- PORTFOLIO PHOTOS -->
-<section id="portfolio" class="bg-green-50 py-20">
-  <div class="max-w-6xl mx-auto px-6">
-
-    <h2 class="section-title">My Teaching Portfolio</h2>
-
-    <p class="text-gray-700 mb-8">
-      A collection of classroom activities, science experiments,
-      professional development, and memorable teaching experiences.
-    </p>
-
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-
-      <div class="photo-card" id="card_1">
-        <div class="photo-placeholder" id="placeholder_1">
-          <span class="text-4xl mb-3">🔬</span>
-          <strong>Science Experiments</strong>
-          <span class="text-sm mt-2">Classroom laboratory activities</span>
+            </div>
         </div>
-        <img id="image_1" class="hidden" alt="Science experiments">
-        <div class="owner-control hidden" id="controls_1">
-          <button type="button" onclick="removeCardPhoto(1)"
-                  class="bg-red-600 text-white rounded px-3 py-2 text-sm">
-            Remove
-          </button>
+    </section>
+
+    <!-- AWARDS & CONTRIBUTIONS SECTION -->
+    <section id="awards" class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-brand-600">Honors</h2>
+                <h3 class="text-3xl font-extrabold text-slate-900 mt-2">Awards & Key Contributions</h3>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm flex gap-4 items-start">
+                    <div class="w-10 h-10 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center font-bold flex-shrink-0 text-xl">🥇</div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm">1st Placer Coach - Science Quiz</h4>
+                        <span class="text-xs font-semibold text-brand-600 block mt-0.5">2022 Division Level Competition</span>
+                        <p class="text-xs text-slate-500 mt-2">Guided secondary science students to top honors in district-wide academic quiz bowls.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm flex gap-4 items-start">
+                    <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold flex-shrink-0 text-xl">📘</div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm">Regional Science Module Writer</h4>
+                        <span class="text-xs font-semibold text-brand-600 block mt-0.5">2019 – 2020 Academic Year</span>
+                        <p class="text-xs text-slate-500 mt-2">Authored official chemistry learning modules during distance learning initiatives.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm flex gap-4 items-start">
+                    <div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold flex-shrink-0 text-xl">⚖️</div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm">Outstanding Science Judge</h4>
+                        <span class="text-xs font-semibold text-brand-600 block mt-0.5">2019 Division Science Fair</span>
+                        <p class="text-xs text-slate-500 mt-2">Evaluated high school investigative research projects across physics and chemistry.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm flex gap-4 items-start">
+                    <div class="w-10 h-10 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center font-bold flex-shrink-0 text-xl">✨</div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm">STAR of Outlook Coach</h4>
+                        <span class="text-xs font-semibold text-brand-600 block mt-0.5">Academic Excellence Award</span>
+                        <p class="text-xs text-slate-500 mt-2">Recognized for instructional coaching and promoting academic curiosity in youth.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm flex gap-4 items-start">
+                    <div class="w-10 h-10 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center font-bold flex-shrink-0 text-xl">🌐</div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm">Top Foreign Educator Candidate</h4>
+                        <span class="text-xs font-semibold text-brand-600 block mt-0.5">China International Teaching</span>
+                        <p class="text-xs text-slate-500 mt-2">Nominated for outstanding cross-cultural curriculum engagement and adaptability.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm flex gap-4 items-start">
+                    <div class="w-10 h-10 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center font-bold flex-shrink-0 text-xl">🧪</div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm">Chemistry Lab Safety Officer</h4>
+                        <span class="text-xs font-semibold text-brand-600 block mt-0.5">School Safety Board</span>
+                        <p class="text-xs text-slate-500 mt-2">Maintained laboratory chemical inventories and student safety protocol guidelines.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <input type="file" id="input_1" accept="image/*" hidden>
-        <button type="button" onclick="triggerCardUpload(1)"
-                class="absolute inset-0 w-full h-full cursor-pointer"
-                aria-label="Upload science experiment photo"></button>
-      </div>
+    </section>
 
-      <div class="photo-card" id="card_2">
-        <div class="photo-placeholder" id="placeholder_2">
-          <span class="text-4xl mb-3">🧪</span>
-          <strong>Hands-on Learning</strong>
-          <span class="text-sm mt-2">Interactive learning experiences</span>
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto bg-navy-900 rounded-3xl p-8 sm:p-12 text-white shadow-2xl relative overflow-hidden">
+                <div class="absolute -right-12 -bottom-12 w-64 h-64 bg-brand-600/20 rounded-full blur-3xl pointer-events-none"></div>
+                
+                <div class="grid md:grid-cols-2 gap-8 items-center relative z-10">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-widest text-brand-500">Get In Touch</span>
+                        <h3 class="text-3xl font-extrabold text-white mt-2">Let’s connect for opportunities or collaboration.</h3>
+                        <p class="text-slate-300 text-sm mt-3 leading-relaxed">
+                            Interested in scientific literacy, STEM curriculum planning, or academic inquiries? Send a direct message.
+                        </p>
+                        
+                        <div class="mt-6 space-y-3 text-sm text-slate-300">
+                            <div class="flex items-center gap-3">
+                                <span>📧</span>
+                                <span class="font-medium">elpaplanning@gmail.com</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span>📍</span>
+                                <span class="font-medium">North Carolina, United States</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Form -->
+                    <form onsubmit="handleFormSubmit(event)" class="bg-slate-800/80 p-6 rounded-2xl border border-slate-700/80 space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 mb-1">Your Name</label>
+                            <input type="text" required placeholder="Jane Doe" class="w-full px-3.5 py-2.5 rounded-lg bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-brand-500" />
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 mb-1">Email Address</label>
+                            <input type="email" required placeholder="jane@example.com" class="w-full px-3.5 py-2.5 rounded-lg bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-brand-500" />
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 mb-1">Message</label>
+                            <textarea rows="3" required placeholder="Write your message here..." class="w-full px-3.5 py-2.5 rounded-lg bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-brand-500"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-3 rounded-lg bg-brand-600 text-white font-semibold text-sm hover:bg-brand-500 transition-colors shadow">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
-        <img id="image_2" class="hidden" alt="Hands-on learning">
-        <div class="owner-control hidden" id="controls_2">
-          <button type="button" onclick="removeCardPhoto(2)"
-                  class="bg-red-600 text-white rounded px-3 py-2 text-sm">
-            Remove
-          </button>
-        </div>
-        <input type="file" id="input_2" accept="image/*" hidden>
-        <button type="button" onclick="triggerCardUpload(2)"
-                class="absolute inset-0 w-full h-full cursor-pointer"
-                aria-label="Upload hands-on learning photo"></button>
-      </div>
+    </section>
 
-      <div class="photo-card" id="card_3">
-        <div class="photo-placeholder" id="placeholder_3">
-          <span class="text-4xl mb-3">👩‍🏫</span>
-          <strong>Classroom Activities</strong>
-          <span class="text-sm mt-2">Teaching and student engagement</span>
-        </div>
-        <img id="image_3" class="hidden" alt="Classroom activities">
-        <div class="owner-control hidden" id="controls_3">
-          <button type="button" onclick="removeCardPhoto(3)"
-                  class="bg-red-600 text-white rounded px-3 py-2 text-sm">
-            Remove
-          </button>
-        </div>
-        <input type="file" id="input_3" accept="image/*" hidden>
-        <button type="button" onclick="triggerCardUpload(3)"
-                class="absolute inset-0 w-full h-full cursor-pointer"
-                aria-label="Upload classroom photo"></button>
-      </div>
-
-      <div class="photo-card" id="card_4">
-        <div class="photo-placeholder" id="placeholder_4">
-          <span class="text-4xl mb-3">🌎</span>
-          <strong>Environmental Science</strong>
-          <span class="text-sm mt-2">Exploration and discovery</span>
-        </div>
-        <img id="image_4" class="hidden" alt="Environmental science">
-        <div class="owner-control hidden" id="controls_4">
-          <button type="button" onclick="removeCardPhoto(4)"
-                  class="bg-red-600 text-white rounded px-3 py-2 text-sm">
-            Remove
-          </button>
-        </div>
-        <input type="file" id="input_4" accept="image/*" hidden>
-        <button type="button" onclick="triggerCardUpload(4)"
-                class="absolute inset-0 w-full h-full cursor-pointer"
-                aria-label="Upload environmental science photo"></button>
-      </div>
-
-      <div class="photo-card" id="card_5">
-        <div class="photo-placeholder" id="placeholder_5">
-          <span class="text-4xl mb-3">🏆</span>
-          <strong>Professional Achievements</strong>
-          <span class="text-sm mt-2">Awards and recognition</span>
-        </div>
-        <img id="image_5" class="hidden" alt="Professional achievements">
-        <div class="owner-control hidden" id="controls_5">
-          <button type="button" onclick="removeCardPhoto(5)"
-                  class="bg-red-600 text-white rounded px-3 py-2 text-sm">
-            Remove
-          </button>
-        </div>
-        <input type="file" id="input_5" accept="image/*" hidden>
-        <button type="button" onclick="triggerCardUpload(5)"
-                class="absolute inset-0 w-full h-full cursor-pointer"
-                aria-label="Upload achievement photo"></button>
-      </div>
-
-      <div class="photo-card" id="card_6">
-        <div class="photo-placeholder" id="placeholder_6">
-          <span class="text-4xl mb-3">📖</span>
-          <strong>Professional Development</strong>
-          <span class="text-sm mt-2">Training and collaboration</span>
-        </div>
-        <img id="image_6" class="hidden" alt="Professional development">
-        <div class="owner-control hidden" id="controls_6">
-          <button type="button" onclick="removeCardPhoto(6)"
-                  class="bg-red-600 text-white rounded px-3 py-2 text-sm">
-            Remove
-          </button>
-        </div>
-        <input type="file" id="input_6" accept="image/*" hidden>
-        <button type="button" onclick="triggerCardUpload(6)"
-                class="absolute inset-0 w-full h-full cursor-pointer"
-                aria-label="Upload professional development photo"></button>
-      </div>
-
-    </div>
-
-    <p id="uploadStatus" class="mt-6 text-sm font-semibold" role="status" aria-live="polite"></p>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact" class="max-w-6xl mx-auto px-6 py-20">
-  <h2 class="section-title">Contact Me</h2>
-
-  <div class="bg-white rounded-xl shadow-sm p-8 space-y-4">
-    <p><strong>Email:</strong>
-      <a class="text-green-800 underline" href="mailto:elpaplanning@gmail.com">
-        elpaplanning@gmail.com
-      </a>
-    </p>
-
-    <p><strong>Phone:</strong>
-      <a class="text-green-800 underline" href="tel:+19194376811">
-        +1 (919) 437-6811
-      </a>
-    </p>
-
-    <p><strong>Location:</strong> Clayton, North Carolina</p>
-  </div>
-</section>
-
+    <!-- FOOTER -->
 <!-- FOOTER -->
-<footer class="emerald text-white py-8">
-  <div class="max-w-6xl mx-auto px-6 text-center">
-    <p class="font-semibold">
-      Leilanie Grace A. Abuloc | Science Teacher
-    </p>
-    <p class="text-sm text-green-100 mt-2">
-      Inspiring curiosity. Empowering learners. Exploring science.
-    </p>
+<footer class="bg-slate-900 text-slate-300 py-8 text-center">
+    <div class="max-w-7xl mx-auto px-4">
 
-    <button id="ownerAccessButton" type="button"
-            class="mt-6 border border-yellow-100 text-yellow-100 px-5 py-2 rounded-lg hover:bg-yellow-100 hover:text-green-900">
-      Owner Access
-    </button>
-
-    <p class="text-xs text-green-200 mt-6">
-      © <span id="currentYear"></span> All rights reserved.
-    </p>
-  </div>
-</footer>
-
-<!-- OWNER LOGIN DIALOGUE -->
-<section id="ownerManagement"
-         class="hidden fixed inset-0 z-50 modal-backdrop items-center justify-center p-4"
-         role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
-
-  <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-8 relative">
-
-    <button id="closeOwnerDialogue" type="button"
-            class="absolute top-4 right-5 text-gray-500 hover:text-red-600 text-2xl"
-            aria-label="Close dialogue">
-      &times;
-    </button>
-
-    <!-- LOGIN VIEW -->
-    <div id="ownerLogin">
-      <div class="text-center mb-6">
-        <div class="text-4xl mb-3">🔐</div>
-        <h2 id="dialogTitle" class="text-2xl font-bold text-green-900">
-          Owner Login
-        </h2>
-        <p class="text-gray-500 text-sm mt-2">
-          Sign in to manage your portfolio photographs.
+        <p class="text-sm">
+            © <span id="currentYear"></span>
+            Leilanie Grace Abuloc. All rights reserved.
         </p>
-      </div>
 
-      <form id="loginForm" class="space-y-4">
-        <div>
-          <label for="ownerEmail" class="block font-semibold text-sm mb-1">
-            Email Address
-          </label>
-          <input id="ownerEmail" type="email" required autocomplete="username"
-                 class="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-green-700"
-                 placeholder="Enter your email">
-        </div>
-
-        <div>
-          <label for="ownerPassword" class="block font-semibold text-sm mb-1">
-            Password
-          </label>
-          <input id="ownerPassword" type="password" required
-                 autocomplete="current-password"
-                 class="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-green-700"
-                 placeholder="Enter your password">
-        </div>
-
-        <button id="loginButton" type="submit"
-                class="w-full emerald text-white font-bold rounded-lg py-3 hover:bg-green-800">
-          Sign In
+        <button
+            id="ownerAccessButton"
+            type="button"
+            class="mt-4 px-4 py-2 rounded-lg border border-teal-500 text-teal-400 text-sm hover:bg-teal-900 transition-colors"
+        >
+            Owner Access
         </button>
-      </form>
+
     </div>
+</footer>
+    </footer>
 
-    <!-- SIGNED-IN VIEW -->
-    <div id="ownerSignedIn" class="hidden text-center">
-      <div class="text-4xl mb-3">✅</div>
-      <h2 class="text-2xl font-bold text-green-900">
-        Welcome, Owner!
-      </h2>
-      <p class="text-gray-600 mt-3">
-        You are signed in. You can now upload and remove portfolio photos.
-      </p>
+    <!-- JAVASCRIPT LOGIC (LOCALSTORAGE & INTERACTION) -->
+    <script>
+    // ==========================================
+    // SUPABASE CONFIGURATION
+    // ==========================================
 
-      <button id="logoutButton" type="button"
-              class="w-full bg-red-600 text-white font-bold rounded-lg py-3 mt-6 hover:bg-red-700">
-        Sign Out
-      </button>
-    </div>
+    const SUPABASE_URL = "https://anpexurxqjmicgdrkfoi.supabase.co";
 
-    <p id="loginMessage" class="text-sm text-center mt-4" role="status" aria-live="polite"></p>
+    // Paste your NEW publishable key here.
+    // Never use a secret or service-role key.
+    const SUPABASE_PUBLISHABLE_KEY = "sb_publishable__s-tdQIr4-8eW-vUMSbEuw_I0LR09Lk";
 
-  </div>
-</section>
-
-<script>
-/* =====================================================
-   SUPABASE CONFIGURATION
-   ===================================================== */
-
-const SUPABASE_URL = "https://anpexurxqjmicgdrkfoi.supabase.co";
-
-/*
-  REPLACE THIS VALUE with your Supabase publishable key.
-  Do not use your service_role or secret key here.
-*/
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable__s-tdQIr4-8eW-vUMSbEuw_I0LR09Lk";
-
-const STORAGE_BUCKET = "portfolio-images";
-
-let supabaseClient = null;
-let currentUser = null;
-
-/* =====================================================
-   INITIALIZATION
-   ===================================================== */
-
-document.addEventListener("DOMContentLoaded", initializePortfolio);
-
-async function initializePortfolio() {
-  document.getElementById("currentYear").textContent =
-    new Date().getFullYear();
-
-  document.getElementById("mobileMenuButton").addEventListener("click", () => {
-    document.getElementById("mobileMenu").classList.toggle("hidden");
-  });
-
-  document.querySelectorAll("#mobileMenu a").forEach(link => {
-    link.addEventListener("click", () => {
-      document.getElementById("mobileMenu").classList.add("hidden");
-    });
-  });
-
-  setupOwnerDialogue();
-  setupPhotoUploads();
-
-  if (
-    !SUPABASE_PUBLISHABLE_KEY ||
-    SUPABASE_PUBLISHABLE_KEY === "PASTE_YOUR_SUPABASE_PUBLISHABLE_KEY_HERE"
-  ) {
-    showStatus("Add your Supabase publishable key in the HTML configuration.");
-    updateLoginDisplay();
-    return;
-  }
-
-  if (!window.supabase) {
-    showStatus("Supabase library did not load. Check your internet connection.");
-    return;
-  }
-
-  try {
-    supabaseClient = window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_PUBLISHABLE_KEY
+    const supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
     );
 
-    const { data, error } = await supabaseClient.auth.getSession();
+    const BUCKET = "portfolio-images";
+    let currentUser = null;
 
-    if (error) throw error;
+    // ==========================================
+    // GENERAL PAGE FEATURES
+    // ==========================================
 
-    currentUser = data.session?.user || null;
-    updateLoginDisplay();
+    document.getElementById("currentYear").textContent =
+        new Date().getFullYear();
 
-    await loadAllPortfolioPhotos();
+    const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
 
-    supabaseClient.auth.onAuthStateChange((_event, session) => {
-      currentUser = session?.user || null;
-      updateLoginDisplay();
-      loadAllPortfolioPhotos();
+    mobileMenuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
     });
 
-  } catch (error) {
-    console.error(error);
-    showStatus("Unable to connect to Supabase. Check your project settings.");
-  }
-}
+    const uploadStatus = document.getElementById("uploadStatus");
 
-/* =====================================================
-   OWNER DIALOGUE
-   ===================================================== */
-
-function setupOwnerDialogue() {
-  const accessButton = document.getElementById("ownerAccessButton");
-  const dialogue = document.getElementById("ownerManagement");
-  const closeButton = document.getElementById("closeOwnerDialogue");
-
-  accessButton.addEventListener("click", () => {
-    dialogue.classList.remove("hidden");
-    dialogue.classList.add("flex");
-    document.getElementById("loginMessage").textContent = "";
-  });
-
-  closeButton.addEventListener("click", closeOwnerDialogue);
-
-  dialogue.addEventListener("click", event => {
-    if (event.target === dialogue) {
-      closeOwnerDialogue();
+    function showStatus(message) {
+        if (uploadStatus) uploadStatus.textContent = message;
     }
-  });
 
-  document.addEventListener("keydown", event => {
-    if (event.key === "Escape") closeOwnerDialogue();
-  });
+// ==========================================
+// OWNER ACCESS DIALOGUE
+// ==========================================
 
-  document.getElementById("loginForm").addEventListener("submit", signInOwner);
-  document.getElementById("logoutButton").addEventListener("click", signOutOwner);
-}
-
-function closeOwnerDialogue() {
-  const dialogue = document.getElementById("ownerManagement");
-  dialogue.classList.add("hidden");
-  dialogue.classList.remove("flex");
-}
+const ownerManagement = document.getElementById("ownerManagement");
+const ownerLogin = document.getElementById("ownerLogin");
+const ownerSignedIn = document.getElementById("ownerSignedIn");
+const ownerAccessButton = document.getElementById("ownerAccessButton");
 
 function updateLoginDisplay() {
-  const loggedIn = !!currentUser;
 
-  document.getElementById("ownerLogin").classList.toggle("hidden", loggedIn);
-  document.getElementById("ownerSignedIn").classList.toggle("hidden", !loggedIn);
+    // Update owner login display
+    ownerLogin.classList.toggle("hidden", !!currentUser);
+    ownerSignedIn.classList.toggle("hidden", !currentUser);
 
-  setOwnerControlVisible(
-    document.getElementById("removeProfileBtn"),
-    loggedIn
-  );
+    // Show or hide the profile photo Remove button
+    const profileRemoveButton = document.getElementById("removeProfileBtn");
 
-  for (let i = 1; i <= 6; i++) {
-    setOwnerControlVisible(
-      document.getElementById(`controls_${i}`),
-      loggedIn
-    );
-  }
+    if (profileRemoveButton) {
+        profileRemoveButton.classList.toggle("hidden", !currentUser);
+    }
 
-  document.getElementById("profileUploadHint")
-    .classList.toggle("hidden", !loggedIn);
+    // Show or hide all six portfolio Remove buttons
+    for (let i = 1; i <= 6; i++) {
+
+        const removeButton = document.getElementById(
+            btn_remove_card_${i}
+        );
+
+        if (removeButton) {
+            removeButton.classList.toggle("hidden", !currentUser);
+        }
+    }
 }
 
-function setOwnerControlVisible(element, visible) {
-  if (!element) return;
+// Sign in
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-  element.hidden = !visible;
-  element.classList.toggle("hidden", !visible);
-}
+    showStatus("Signing in...");
 
-async function signInOwner(event) {
-  event.preventDefault();
+    const email = document.getElementById("ownerEmail").value;
+    const password = document.getElementById("ownerPassword").value;
 
-  if (!supabaseClient) {
-    showLoginMessage("Supabase is not configured yet.", true);
-    return;
-  }
-
-  const email = document.getElementById("ownerEmail").value.trim();
-  const password = document.getElementById("ownerPassword").value;
-  const button = document.getElementById("loginButton");
-
-  button.disabled = true;
-  button.textContent = "Signing in...";
-  showLoginMessage("");
-
-  try {
     const { data, error } = await supabaseClient.auth.signInWithPassword({
-      email,
-      password
+        email,
+        password
     });
 
-    if (error) throw error;
+    if (error) {
+        showStatus("Sign-in failed: " + error.message);
+        return;
+    }
 
     currentUser = data.user;
+
     document.getElementById("ownerPassword").value = "";
 
     updateLoginDisplay();
-    showLoginMessage("Successfully signed in!");
+
+    // Close dialogue after successful login
+    ownerManagement.classList.add("hidden");
 
     await loadAllPortfolioPhotos();
 
-    setTimeout(closeOwnerDialogue, 700);
+    showStatus("Successfully signed in!");
+});
 
-  } catch (error) {
-    console.error(error);
-    showLoginMessage(error.message || "Login failed. Check your credentials.", true);
-  } finally {
-    button.disabled = false;
-    button.textContent = "Sign In";
-  }
-}
+// ==========================================
+// SIGN OUT
+// ==========================================
 
-async function signOutOwner() {
-  if (!supabaseClient) return;
+document.getElementById("logoutButton").addEventListener("click", async () => {
 
-  const button = document.getElementById("logoutButton");
-  button.disabled = true;
-  button.textContent = "Signing out...";
+    const logoutButton = document.getElementById("logoutButton");
 
-  try {
-    const { error } = await supabaseClient.auth.signOut();
+    logoutButton.disabled = true;
+    logoutButton.textContent = "Signing out...";
 
-    if (error) throw error;
+    try {
+        const { error } = await supabaseClient.auth.signOut({
+            scope: "local"
+        });
 
-    currentUser = null;
+        if (error) {
+            throw error;
+        }
+
+        // Immediately update the website
+        currentUser = null;
+
+        updateLoginDisplay();
+
+        // Close the login dialogue
+        ownerManagement.classList.add("hidden");
+
+        // Clear password field
+        document.getElementById("ownerPassword").value = "";
+
+        showStatus("You have successfully signed out.");
+
+    } catch (error) {
+        console.error("Sign-out error:", error);
+        showStatus("Could not sign out: " + error.message);
+
+    } finally {
+        logoutButton.disabled = false;
+        logoutButton.textContent = "Sign Out";
+    }
+});
+// ==========================================
+// SUPABASE AUTHENTICATION LISTENER
+// ==========================================
+
+supabaseClient.auth.onAuthStateChange((_event, session) => {
+
+    currentUser = session?.user || null;
+
     updateLoginDisplay();
 
-    document.getElementById("ownerPassword").value = "";
-    document.getElementById("ownerEmail").value = "";
+});
 
-    closeOwnerDialogue();
-    showStatus("You have successfully signed out.");
+    // ==========================================
+    // PHOTO DISPLAY
+    // ==========================================
 
-  } catch (error) {
-    console.error(error);
-    showLoginMessage(error.message || "Unable to sign out.", true);
-  } finally {
-    button.disabled = false;
-    button.textContent = "Sign Out";
-  }
-}
+    function renderHeroPhoto(url) {
+        const image = document.getElementById("profileImage");
+        const placeholder = document.getElementById("profilePlaceholder");
+        const removeButton = document.getElementById("removeProfileBtn");
 
-function showLoginMessage(message, isError = false) {
-  const element = document.getElementById("loginMessage");
-  element.textContent = message;
-  element.className = "text-sm text-center mt-4 " +
-    (isError ? "text-red-600" : "text-green-700");
-}
+        image.src = url;
+        image.classList.remove("hidden");
+        placeholder.classList.add("hidden");
 
-/* =====================================================
-   PHOTO UPLOAD SETUP
-   ===================================================== */
+        if (removeButton) {
+            removeButton.classList.toggle("hidden", !currentUser);
+        }
+    }
 
-function setupPhotoUploads() {
-  const profileHolder = document.getElementById("profileHolder");
-  const profileInput = document.getElementById("profileInput");
+    function clearHeroPhoto() {
+        document.getElementById("profileImage").src = "";
+        document.getElementById("profileImage").classList.add("hidden");
+        document.getElementById("profilePlaceholder").classList.remove("hidden");
+        document.getElementById("removeProfileBtn").classList.add("hidden");
+    }
 
-  profileHolder.addEventListener("click", event => {
-    if (event.target.closest("button")) return;
-    if (!currentUser) return;
+    function renderCardPhoto(cardId, url) {
+        const image = document.getElementById(img_${cardId});
+        const placeholder = document.getElementById(placeholder_${cardId});
+        const removeButton = document.getElementById(btn_remove_${cardId});
 
-    profileInput.click();
-  });
+        if (!image || !placeholder) return;
 
-  profileInput.addEventListener("change", async () => {
-    const file = profileInput.files[0];
-    if (file) await uploadPortfolioPhoto("profile", file);
-    profileInput.value = "";
-  });
+        image.src = url;
+        image.classList.remove("hidden");
+        placeholder.classList.add("hidden");
 
-  document.getElementById("removeProfileBtn").addEventListener("click", event => {
-    event.stopPropagation();
-    removePortfolioPhoto("profile");
-  });
+        if (removeButton) {
+            removeButton.classList.toggle("hidden", !currentUser);
+        }
+    }
 
-  for (let i = 1; i <= 6; i++) {
-    document.getElementById(`input_${i}`).addEventListener("change", async event => {
-      const file = event.target.files[0];
-      if (file) await uploadPortfolioPhoto(`card_${i}`, file);
-      event.target.value = "";
+    function clearCardPhoto(cardId) {
+        const image = document.getElementById(img_${cardId});
+        const placeholder = document.getElementById(placeholder_${cardId});
+        const removeButton = document.getElementById(btn_remove_${cardId});
+
+        if (image) {
+            image.src = "";
+            image.classList.add("hidden");
+        }
+
+        if (placeholder) placeholder.classList.remove("hidden");
+        if (removeButton) removeButton.classList.add("hidden");
+    }
+
+    // ==========================================
+    // LOAD PHOTOS FROM SUPABASE
+    // ==========================================
+
+    async function loadAllPortfolioPhotos() {
+        const { data, error } = await supabaseClient
+            .from("portfolio_images")
+            .select("slot, storage_path");
+
+        if (error) {
+            showStatus("Could not load photos: " + error.message);
+            return;
+        }
+
+        // Clear all placeholders first
+        clearHeroPhoto();
+
+        for (let i = 1; i <= 6; i++) {
+            clearCardPhoto(card_${i});
+        }
+
+        data.forEach((photo) => {
+            const { data: publicData } = supabaseClient.storage
+                .from(BUCKET)
+                .getPublicUrl(photo.storage_path);
+
+            if (photo.slot === "profile") {
+                renderHeroPhoto(publicData.publicUrl);
+            } else if (/^card_[1-6]$/.test(photo.slot)) {
+                renderCardPhoto(photo.slot, publicData.publicUrl);
+            }
+        });
+    }
+
+    // ==========================================
+    // UPLOAD A PHOTO
+    // ==========================================
+
+    async function uploadPortfolioPhoto(slot, file) {
+        if (!currentUser) {
+            showStatus("Please sign in before uploading photos.");
+            return;
+        }
+
+        if (!file || !file.type.startsWith("image/")) {
+            showStatus("Please select an image file.");
+            return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+            showStatus("Please choose an image smaller than 5 MB.");
+            return;
+        }
+
+        showStatus("Uploading photo...");
+
+        try {
+            const extension = file.name.split(".").pop().toLowerCase()
+                .replace(/[^a-z0-9]/g, "") || "jpg";
+
+            const storagePath =
+                ${currentUser.id}/${slot}.${extension};
+
+            // Remember the previous file so it can be removed after replacement
+            const { data: previous } = await supabaseClient
+                .from("portfolio_images")
+                .select("storage_path")
+                .eq("slot", slot)
+                .maybeSingle();
+
+            // Upload image to Supabase Storage
+            const { error: uploadError } = await supabaseClient.storage
+                .from(BUCKET)
+                .upload(storagePath, file, {
+                    upsert: true,
+                    contentType: file.type,
+                    cacheControl: "3600"
+                });
+
+            if (uploadError) throw uploadError;
+
+            // Save its location in the database
+            const { error: databaseError } = await supabaseClient
+                .from("portfolio_images")
+                .upsert({
+                    slot,
+                    storage_path: storagePath,
+                    user_id: currentUser.id,
+                    updated_at: new Date().toISOString()
+                }, {
+                    onConflict: "slot"
+                });
+
+            if (databaseError) throw databaseError;
+
+            // Remove the old file if its extension changed
+            if (previous?.storage_path &&
+                previous.storage_path !== storagePath) {
+                await supabaseClient.storage
+                    .from(BUCKET)
+                    .remove([previous.storage_path]);
+            }
+
+            const { data: publicData } = supabaseClient.storage
+                .from(BUCKET)
+                .getPublicUrl(storagePath);
+
+            if (slot === "profile") {
+                renderHeroPhoto(publicData.publicUrl);
+            } else {
+                renderCardPhoto(slot, publicData.publicUrl);
+            }
+
+            showStatus("Photo uploaded and saved successfully!");
+
+        } catch (error) {
+            console.error(error);
+            showStatus("Upload failed: " + error.message);
+        }
+    }
+
+    // ==========================================
+    // PROFILE PHOTO
+    // ==========================================
+
+    const profileHolder = document.getElementById("profileHolder");
+    const profileInput = document.getElementById("profileInput");
+const profileImageHolder = document.getElementById("profileImageHolder");
+
+if (profileImageHolder) {
+    profileImageHolder.addEventListener("click", () => {
+        profileInput.click();
     });
-  }
+}
+    profileHolder.addEventListener("click", () => {
+        if (!currentUser) {
+            showStatus("Please sign in to change your profile photo.");
+            return;
+        }
+
+        profileInput.click();
+    });
+// Open photo picker when the placeholder is clicked
+const profilePlaceholder = document.getElementById("profilePlaceholder");
+const profileImage = document.getElementById("profileImage");
+
+profilePlaceholder?.addEventListener("click", () => {
+    if (currentUser) {
+        profileInput.click();
+    }
+});
+
+// Allow clicking an existing photo to replace it
+profileImage?.addEventListener("click", () => {
+    if (currentUser) {
+        profileInput.click();
+    }
+});
+    profileInput.addEventListener("change", async (e) => {
+        const file = e.target.files[0];
+
+        if (file) {
+            await uploadPortfolioPhoto("profile", file);
+        }
+
+        profileInput.value = "";
+    });
+
+    document.getElementById("removeProfileBtn")
+        .addEventListener("click", async () => {
+            await removePortfolioPhoto("profile");
+        });
+
+    // ==========================================
+    // SIX PORTFOLIO PHOTO CARDS
+    // ==========================================
+
+    window.triggerCardUpload = function(cardId) {
+        if (!currentUser) {
+            showStatus("Please sign in to upload portfolio photos.");
+            return;
+        }
+
+        document.getElementById(input_${cardId}).click();
+    };
+
+    window.handleCardUpload = async function(event, cardId) {
+        const file = event.target.files[0];
+
+        if (file) {
+            await uploadPortfolioPhoto(cardId, file);
+        }
+
+        event.target.value = "";
+    };
+
+    // ==========================================
+    // REMOVE A PHOTO
+    // ==========================================
+
+    async function removePortfolioPhoto(slot) {
+        if (!currentUser) {
+            showStatus("Please sign in first.");
+            return;
+        }
+
+        showStatus("Removing photo...");
+
+        try {
+            const { data: photo, error: readError } = await supabaseClient
+                .from("portfolio_images")
+                .select("storage_path")
+                .eq("slot", slot)
+                .maybeSingle();
+
+            if (readError) throw readError;
+
+            if (photo?.storage_path) {
+                const { error: storageError } = await supabaseClient.storage
+                    .from(BUCKET)
+                    .remove([photo.storage_path]);
+
+                if (storageError) throw storageError;
+            }
+
+            const { error: deleteError } = await supabaseClient
+                .from("portfolio_images")
+                .delete()
+                .eq("slot", slot);
+
+            if (deleteError) throw deleteError;
+
+            if (slot === "profile") {
+                clearHeroPhoto();
+            } else {
+                clearCardPhoto(slot);
+            }
+
+            showStatus("Photo removed successfully.");
+
+        } catch (error) {
+            console.error(error);
+            showStatus("Could not remove photo: " + error.message);
+        }
+    }
+
+    window.removeCardPhoto = async function(cardId) {
+        await removePortfolioPhoto(cardId);
+    };
+
+    // ==========================================
+    // CONTACT FORM
+    // ==========================================
+
+    function handleFormSubmit(e) {
+        e.preventDefault();
+        alert("Thank you! Your message has been received.");
+        e.target.reset();
+    }
+
+    // ==========================================
+    // START WEBSITE
+    // ==========================================
+
+async function initializePortfolio() {
+    try {
+        const { data, error } = await supabaseClient.auth.getSession();
+
+        if (error) throw error;
+
+        currentUser = data.session?.user || null;
+
+        updateLoginDisplay();
+
+        await loadAllPortfolioPhotos();
+
+    } catch (error) {
+        console.error("Website initialization error:", error);
+        showStatus("Could not initialize website: " + error.message);
+    }
 }
 
-/* =====================================================
-   STORAGE FILE HELPERS
-   ===================================================== */
-
-function getStoragePath(slot) {
-  return slot === "profile" ? "profile.jpg" : `${slot}.jpg`;
-}
-
-function getPublicPhotoUrl(path) {
-  const { data } = supabaseClient.storage
-    .from(STORAGE_BUCKET)
-    .getPublicUrl(path);
-
-  return data.publicUrl;
-}
-
-async function loadAllPortfolioPhotos() {
-  if (!supabaseClient) return;
-
-  renderPhotoFromStorage("profile");
-
-  for (let i = 1; i <= 6; i++) {
-    renderPhotoFromStorage(`card_${i}`);
-  }
-}
-
-function renderPhotoFromStorage(slot) {
-  const path = getStoragePath(slot);
-  const url = getPublicPhotoUrl(path) + `?t=${Date.now()}`;
-
-  const image = document.getElementById(
-    slot === "profile" ? "profileImage" : `image_${slot.split("_")[1]}`
-  );
-
-  const placeholder = document.getElementById(
-    slot === "profile" ? "profilePlaceholder" : `placeholder_${slot.split("_")[1]}`
-  );
-
-  if (!image || !placeholder) return;
-
-  const testImage = new Image();
-
-  testImage.onload = () => {
-    image.src = url;
-    image.classList.remove("hidden");
-    placeholder.classList.add("hidden");
-  };
-
-  testImage.onerror = () => {
-    image.removeAttribute("src");
-    image.classList.add("hidden");
-    placeholder.classList.remove("hidden");
-  };
-
-  testImage.src = url;
-}
-
-/* =====================================================
-   UPLOAD PHOTOS
-   ===================================================== */
-
-async function uploadPortfolioPhoto(slot, file) {
-  if (!currentUser) {
-    showStatus("Please sign in before uploading photos.");
-    return;
-  }
-
-  if (!supabaseClient) {
-    showStatus("Supabase is not connected.");
-    return;
-  }
-
-  if (!file.type.startsWith("image/")) {
-    showStatus("Please select an image file.");
-    return;
-  }
-
-  if (file.size > 10 * 1024 * 1024) {
-    showStatus("Image must be smaller than 10 MB.");
-    return;
-  }
-
-  const path = getStoragePath(slot);
-
-  showStatus("Uploading photo...");
-
-  try {
-    const { error } = await supabaseClient.storage
-      .from(STORAGE_BUCKET)
-      .upload(path, file, {
-        upsert: true,
-        contentType: file.type,
-        cacheControl: "0"
-      });
-
-    if (error) throw error;
-
-    renderPhotoFromStorage(slot);
-    showStatus("Photo uploaded successfully!");
-
-  } catch (error) {
-    console.error(error);
-    showStatus("Upload failed: " + error.message);
-  }
-}
-
-/* =====================================================
-   REMOVE PHOTOS
-   ===================================================== */
-
-async function removePortfolioPhoto(slot) {
-  if (!currentUser) {
-    showStatus("Only the signed-in owner can remove photos.");
-    return;
-  }
-
-  if (!confirm("Are you sure you want to remove this photo?")) return;
-
-  try {
-    const { error } = await supabaseClient.storage
-      .from(STORAGE_BUCKET)
-      .remove([getStoragePath(slot)]);
-
-    if (error) throw error;
-
-    renderPhotoFromStorage(slot);
-    showStatus("Photo removed successfully.");
-
-  } catch (error) {
-    console.error(error);
-    showStatus("Unable to remove photo: " + error.message);
-  }
-}
-
-function triggerCardUpload(number) {
-  if (!currentUser) {
-    showStatus("Please sign in to upload portfolio photos.");
-    return;
-  }
-
-  document.getElementById(`input_${number}`).click();
-}
-
-function removeCardPhoto(number) {
-  removePortfolioPhoto(`card_${number}`);
-}
-
-/* =====================================================
-   STATUS MESSAGE
-   ===================================================== */
-
-function showStatus(message) {
-  document.getElementById("uploadStatus").textContent = message;
-}
+initializePortfolio();
 </script>
-
 </body>
 </html>
