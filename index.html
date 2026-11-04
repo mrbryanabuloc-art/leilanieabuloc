@@ -1116,22 +1116,30 @@ profileImage?.addEventListener("click", () => {
     // START WEBSITE
     // ==========================================
 
-            if (error) throw error;
+        // ==========================================
+// START WEBSITE
+// ==========================================
 
-            currentUser = data.session?.user || null;
+async function initializePortfolio() {
+    try {
+        const { data, error } = await supabaseClient.auth.getSession();
 
-            updateLoginDisplay();
+        if (error) throw error;
 
-            await loadAllPortfolioPhotos();
+        currentUser = data.session?.user || null;
 
-        } catch (error) {
-            console.error("Website initialization error:", error);
-            showStatus("Could not initialize website: " + error.message);
-        }
+        updateLoginDisplay();
+
+        await loadAllPortfolioPhotos();
+
+    } catch (error) {
+        console.error("Website initialization error:", error);
+        showStatus("Could not initialize website: " + error.message);
     }
+}
 
-    initializePortfolio();
+initializePortfolio();
 
-    </script>
+</script>
 </body>
 </html>
