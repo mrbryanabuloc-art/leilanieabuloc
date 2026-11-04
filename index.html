@@ -353,7 +353,7 @@
 <!-- OWNER PHOTO MANAGEMENT -->
 <section class="py-6 bg-teal-50 border-y border-teal-100">
     <div class="max-w-7xl mx-auto px-4 text-center">
-        <div id="ownerLogin">
+        <div id="ownerLogin" class="hidden">
             <p class="text-sm text-slate-600 mb-3">
                 Portfolio owner? Sign in to manage your photos.
             </p>
@@ -935,13 +935,17 @@ if (profileImageHolder) {
 const profilePlaceholder = document.getElementById("profilePlaceholder");
 const profileImage = document.getElementById("profileImage");
 
-profilePlaceholder.addEventListener("click", () => {
-    profileInput.click();
+profilePlaceholder?.addEventListener("click", () => {
+    if (currentUser) {
+        profileInput.click();
+    }
 });
 
 // Allow clicking an existing photo to replace it
-profileImage.addEventListener("click", () => {
-    profileInput.click();
+profileImage?.addEventListener("click", () => {
+    if (currentUser) {
+        profileInput.click();
+    }
 });
     profileInput.addEventListener("change", async (e) => {
         const file = e.target.files[0];
@@ -1054,13 +1058,27 @@ profileImage.addEventListener("click", () => {
 
         currentUser = data.session?.user || null;
         updateLoginDisplay();
+const ownerAccessButton =
+    document.getElementById("ownerAccessButton");
 
+ownerAccessButton?.addEventListener("click", () => {
+    if (!currentUser) {
+        ownerLogin.classList.remove("hidden");
+    }
+});
         await loadAllPortfolioPhotos();
     }
 
     initializePortfolio();
 </script>
 </script>
-       
+ <!-- Private Owner Access -->
+<div class="text-center py-4">
+    <button id="ownerAccessButton"
+        type="button"
+        class="text-xs text-slate-400 hover:text-teal-700">
+        Owner Access
+    </button>
+</div>      
 </body>
 </html>
