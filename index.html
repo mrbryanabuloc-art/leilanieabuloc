@@ -778,28 +778,47 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     showStatus("Successfully signed in!");
 });
 
-// Sign out
+// ==========================================
+// SIGN OUT
+// ==========================================
+
 document.getElementById("logoutButton").addEventListener("click", async () => {
-    const { error } = await supabaseClient.auth.signOut();
 
-    if (error) {
-        showStatus("Sign-out failed: " + error.message);
-        return;
+    const logoutButton = document.getElementById("logoutButton");
+
+    logoutButton.disabled = true;
+    logoutButton.textContent = "Signing out...";
+
+    try {
+        const { error } = await supabaseClient.auth.signOut({
+            scope: "local"
+        });
+
+        if (error) {
+            throw error;
+        }
+
+        // Immediately update the website
+        currentUser = null;
+
+        updateLoginDisplay();
+
+        // Close the login dialogue
+        ownerManagement.classList.add("hidden");
+
+        // Clear password field
+        document.getElementById("ownerPassword").value = "";
+
+        showStatus("You have successfully signed out.");
+
+    } catch (error) {
+        console.error("Sign-out error:", error);
+        showStatus("Could not sign out: " + error.message);
+
+    } finally {
+        logoutButton.disabled = false;
+        logoutButton.textContent = "Sign Out";
     }
-
-    currentUser = null;
-
-    updateLoginDisplay();
-
-    ownerManagement.classList.add("hidden");
-
-    showStatus("You have signed out.");
-});
-
-// Synchronize login state with Supabase
-supabaseClient.auth.onAuthStateChange((_event, session) => {
-    currentUser = session?.user || null;
-    updateLoginDisplay();
 });
     // ==========================================
     // PHOTO DISPLAY
@@ -1120,10 +1139,6 @@ profileImage?.addEventListener("click", () => {
     // START WEBSITE
     // ==========================================
 
-        // ==========================================
-// START WEBSITE
-// ==========================================
-
 async function initializePortfolio() {
     try {
         const { data, error } = await supabaseClient.auth.getSession();
@@ -1143,7 +1158,13 @@ async function initializePortfolio() {
 }
 
 initializePortfolio();
+supabaseClient.auth.onAuthStateChange((_event, session) => {
 
+    currentUser = session?.user || null;
+
+    updateLoginDisplay();
+
+});
 </script>
 </body>
 </html>
