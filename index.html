@@ -351,39 +351,63 @@
         </div>
     </section>
 <!-- OWNER PHOTO MANAGEMENT -->
-<section class="py-6 bg-teal-50 border-y border-teal-100">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-  <!-- PRIVATE OWNER LOGIN PANEL -->
-<section id="ownerManagement" class="hidden">
-    <div id="ownerLogin">
-        <h3>Portfolio Owner</h3>
-        <p>Sign in to manage your photos.</p>
+<!-- OWNER PHOTO MANAGEMENT -->
+<section id="ownerManagement" class="hidden py-6 bg-teal-50 border-y border-teal-100">
+    <div class="max-w-xl mx-auto px-4 text-center">
 
-        <form id="loginForm">
-            <input
-                type="email"
-                id="ownerEmail"
-                placeholder="Email"
-                required
+        <!-- Login Form -->
+        <div id="ownerLogin" class="hidden">
+            <h3 class="text-lg font-bold text-slate-900">
+                Portfolio Owner
+            </h3>
+            <p class="text-sm text-slate-600 mb-4">
+                Sign in to manage your photos.
+            </p>
+
+            <form id="loginForm" class="flex flex-col sm:flex-row gap-3">
+                <input
+                    type="email"
+                    id="ownerEmail"
+                    placeholder="Email address"
+                    required
+                    class="min-w-0 flex-1 px-4 py-3 rounded-lg border border-slate-300"
+                >
+
+                <input
+                    type="password"
+                    id="ownerPassword"
+                    placeholder="Password"
+                    required
+                    class="min-w-0 flex-1 px-4 py-3 rounded-lg border border-slate-300"
+                >
+
+                <button
+                    type="submit"
+                    class="px-6 py-3 rounded-lg bg-brand-700 text-white font-semibold hover:bg-brand-800"
+                >
+                    Sign In
+                </button>
+            </form>
+        </div>
+
+        <!-- Signed-In View -->
+        <div id="ownerSignedIn" class="hidden">
+            <p class="font-semibold text-brand-800 mb-3">
+                You are signed in and can manage your portfolio photos.
+            </p>
+
+            <button
+                id="logoutButton"
+                type="button"
+                class="px-5 py-2 rounded-lg bg-slate-800 text-white"
             >
+                Sign Out
+            </button>
+        </div>
 
-            <input
-                type="password"
-                id="ownerPassword"
-                placeholder="Password"
-                required
-            >
-
-          </div>
-    <!-- PORTFOLIO PHOTO CARDS (Interactive LocalStorage Gallery) -->
-    <section id="portfolio" class="py-20 bg-white border-y border-slate-200/60">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <h2 class="text-xs font-bold uppercase tracking-widest text-brand-600">Visual Evidence</h2>
-                <h3 class="text-3xl font-extrabold text-slate-900 mt-2">Interactive Classroom & Lab Portfolio</h3>
-                <p class="text-sm text-slate-500 mt-2">Sign in to upload or update your photos. Images are stored securely in cloud storage and displayed whenever visitors open your portfolio.</p>
-            </div>
-
+        <p id="uploadStatus" class="text-sm text-slate-600 mt-3"></p>
+    </div>
+</section>
             <!-- 6 Interactive Photo Holders -->
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 
