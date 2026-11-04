@@ -142,6 +142,10 @@
 
                         <!-- Hidden File Input -->
                         <input type="file" id="profileInput" accept="image/*" class="hidden" /> 
+                        <button id="removeProfileBtn" type="button"
+    class="hidden mt-2 text-sm text-red-600 hover:underline">
+    Remove profile photo
+</button>
                     </div>
         </div>
     </section>
@@ -346,14 +350,47 @@
             </div>
         </div>
     </section>
+<!-- OWNER PHOTO MANAGEMENT -->
+<section class="py-6 bg-teal-50 border-y border-teal-100">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+        <div id="ownerLogin">
+            <p class="text-sm text-slate-600 mb-3">
+                Portfolio owner? Sign in to manage your photos.
+            </p>
+            <form id="loginForm" class="flex flex-wrap justify-center gap-2">
+                <input id="ownerEmail" type="email" required
+                    placeholder="Your email"
+                    class="border rounded-lg px-3 py-2 text-sm">
+                <input id="ownerPassword" type="password" required
+                    placeholder="Your password"
+                    class="border rounded-lg px-3 py-2 text-sm">
+                <button type="submit"
+                    class="bg-teal-700 text-white rounded-lg px-4 py-2 text-sm">
+                    Sign In
+                </button>
+            </form>
+        </div>
 
+        <div id="ownerSignedIn" class="hidden">
+            <p class="text-sm text-teal-800 mb-2">
+                You are signed in. You can now upload or remove portfolio photos.
+            </p>
+            <button id="logoutButton" type="button"
+                class="bg-slate-700 text-white rounded-lg px-4 py-2 text-sm">
+                Sign Out
+            </button>
+        </div>
+        <p id="uploadStatus" class="text-sm text-slate-600 mt-3"
+            aria-live="polite"></p>
+    </div>
+</section>
     <!-- PORTFOLIO PHOTO CARDS (Interactive LocalStorage Gallery) -->
     <section id="portfolio" class="py-20 bg-white border-y border-slate-200/60">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-16">
                 <h2 class="text-xs font-bold uppercase tracking-widest text-brand-600">Visual Evidence</h2>
                 <h3 class="text-3xl font-extrabold text-slate-900 mt-2">Interactive Classroom & Lab Portfolio</h3>
-                <p class="text-sm text-slate-500 mt-2">Click on any card frame below to upload custom photos. Photos remain saved on your browser after refresh.</p>
+                <p class="text-sm text-slate-500 mt-2">Sign in to upload or update your photos. Images are stored securely in cloud storage and displayed whenever visitors open your portfolio.</p>
             </div>
 
             <!-- 6 Interactive Photo Holders -->
@@ -607,161 +644,406 @@
 
     <!-- JAVASCRIPT LOGIC (LOCALSTORAGE & INTERACTION) -->
     <script>
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-        // Mobile Nav Menu Toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        /* ===================================================
-           1. HERO PROFILE PHOTO HOLDER (LocalStorage Persistent)
-           =================================================== */
-        const profileHolder = document.getElementById('profileHolder');
-        const profileInput = document.getElementById('profileInput');
-        const profileImage = document.getElementById('profileImage');
-        const profilePlaceholder = document.getElementById('profilePlaceholder');
-        const removeProfileBtn = document.getElementById('removeProfileBtn');
-        const profileStatus = document.getElementById('profileStatus');
-
-        const HERO_STORAGE_KEY = 'portfolio_hero_profile_photo';
-
-        // Load saved hero image on page refresh
-        window.addEventListener('DOMContentLoaded', () => {
-            const savedHeroPhoto = localStorage.getItem(HERO_STORAGE_KEY);
-            if (savedHeroPhoto) {
-                renderHeroPhoto(savedHeroPhoto);
-            }
-            loadAllPortfolioCards();
-        });
-
-        // Trigger file input click
-        profileHolder.addEventListener('click', () => {
-            profileInput.click();
-        });
-
-        // Handle profile photo selection
-        profileInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    const base64Data = event.target.result;
-                    localStorage.setItem(HERO_STORAGE_KEY, base64Data);
-                    renderHeroPhoto(base64Data);
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        function renderHeroPhoto(src) {
-            profileImage.src = src;
-            profileImage.classList.remove('hidden');
-            profilePlaceholder.classList.add('hidden');
-            removeProfileBtn.classList.remove('hidden');
-            profileStatus.textContent = 'Photo saved in browser';
-        }
-
-        removeProfileBtn.addEventListener('click', (e) => {
-            e.stopPropagation(); // prevent opening file browser on click
-            localStorage.removeItem(HERO_STORAGE_KEY);
-            profileImage.src = '';
-            profileImage.classList.add('hidden');
-            profilePlaceholder.classList.remove('hidden');
-            removeProfileBtn.classList.add('hidden');
-            profileStatus.textContent = 'Click container to add photo';
-            profileInput.value = '';
-        });
-
-        /* ===================================================
-           2. PORTFOLIO CARD PHOTO HOLDERS (6 Cards Persistent)
-           =================================================== */
-        const CARD_IDS = ['card_1', 'card_2', 'card_3', 'card_4', 'card_5', 'card_6'];
-
-        function triggerCardUpload(cardId) {
-            const inputElem = document.getElementById(`input_${cardId}`);
-            if (inputElem) inputElem.click();
-        }
-
-        function handleCardUpload(event, cardId) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const base64Image = e.target.result;
-                    const storageKey = `portfolio_photo_${cardId}`;
-                    localStorage.setItem(storageKey, base64Image);
-                    renderCardPhoto(cardId, base64Image);
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        function renderCardPhoto(cardId, base64Image) {
-            const imgElem = document.getElementById(`img_${cardId}`);
-            const placeholderElem = document.getElementById(`placeholder_${cardId}`);
-            const removeBtn = document.getElementById(`btn_remove_${cardId}`);
-
-            if (imgElem && placeholderElem) {
-                imgElem.src = base64Image;
-                imgElem.classList.remove('hidden');
-                placeholderElem.classList.add('hidden');
-                if (removeBtn) removeBtn.classList.remove('hidden');
-            }
-        }
-
-        function removeCardPhoto(cardId) {
-            const storageKey = `portfolio_photo_${cardId}`;
-            localStorage.removeItem(storageKey);
-
-            const imgElem = document.getElementById(`img_${cardId}`);
-            const placeholderElem = document.getElementById(`placeholder_${cardId}`);
-            const removeBtn = document.getElementById(`btn_remove_${cardId}`);
-            const inputElem = document.getElementById(`input_${cardId}`);
-
-            if (imgElem && placeholderElem) {
-                imgElem.src = '';
-                imgElem.classList.add('hidden');
-                placeholderElem.classList.remove('hidden');
-                if (removeBtn) removeBtn.classList.add('hidden');
-                if (inputElem) inputElem.value = '';
-            }
-        }
-
-        function loadAllPortfolioCards() {
-            CARD_IDS.forEach(cardId => {
-                const storageKey = `portfolio_photo_${cardId}`;
-                const savedPhoto = localStorage.getItem(storageKey);
-                if (savedPhoto) {
-                    renderCardPhoto(cardId, savedPhoto);
-                }
-            });
-        }
-
-        /* Message form handling */
-        function handleFormSubmit(e) {
-            e.preventDefault();
-            alert('Thank you! Your message has been sent successfully.');
-            e.target.reset();
-        }
     // ==========================================
-// SUPABASE CONNECTION
-// ==========================================
+    // SUPABASE CONFIGURATION
+    // ==========================================
 
-const SUPABASE_URL = "https://hefngotuuzwuqwnboexz.supabase.co";
+    const SUPABASE_URL = "https://hefngotuuzwuqwnboexz.supabase.co";
 
-// Replace this with your NEW Supabase publishable key.
-// Do not use your secret or service-role key.
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_QaSJ-zQc6QfOCFvxp01Wtg__xHg1plz";
+    // Paste your NEW publishable key here.
+    // Never use a secret or service-role key.
+    const SUPABASE_PUBLISHABLE_KEY = "PASTE_YOUR_NEW_PUBLISHABLE_KEY_HERE";
 
-const supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-);
+    const supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
 
-console.log("Supabase connection initialized.");
+    const BUCKET = "portfolio-images";
+    let currentUser = null;
+
+    // ==========================================
+    // GENERAL PAGE FEATURES
+    // ==========================================
+
+    document.getElementById("currentYear").textContent =
+        new Date().getFullYear();
+
+    const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    mobileMenuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+    });
+
+    const uploadStatus = document.getElementById("uploadStatus");
+
+    function showStatus(message) {
+        if (uploadStatus) uploadStatus.textContent = message;
+    }
+
+    // ==========================================
+    // SIGN-IN AND SIGN-OUT
+    // ==========================================
+
+    const ownerLogin = document.getElementById("ownerLogin");
+    const ownerSignedIn = document.getElementById("ownerSignedIn");
+
+    function updateLoginDisplay() {
+        ownerLogin.classList.toggle("hidden", !!currentUser);
+        ownerSignedIn.classList.toggle("hidden", !currentUser);
+    }
+
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        showStatus("Signing in...");
+
+        const email = document.getElementById("ownerEmail").value;
+        const password = document.getElementById("ownerPassword").value;
+
+        const { data, error } = await supabaseClient.auth.signInWithPassword({
+            email,
+            password
+        });
+
+        if (error) {
+            showStatus("Sign-in failed: " + error.message);
+            return;
+        }
+
+        currentUser = data.user;
+        updateLoginDisplay();
+        await loadAllPortfolioPhotos();
+        showStatus("Signed in. You can now manage your photos.");
+    });
+
+    document.getElementById("logoutButton").addEventListener("click", async () => {
+        const { error } = await supabaseClient.auth.signOut();
+
+        if (error) {
+            showStatus("Sign-out failed: " + error.message);
+            return;
+        }
+
+        currentUser = null;
+        updateLoginDisplay();
+        showStatus("You have signed out.");
+    });
+
+    supabaseClient.auth.onAuthStateChange((_event, session) => {
+        currentUser = session?.user || null;
+        updateLoginDisplay();
+    });
+
+    // ==========================================
+    // PHOTO DISPLAY
+    // ==========================================
+
+    function renderHeroPhoto(url) {
+        const image = document.getElementById("profileImage");
+        const placeholder = document.getElementById("profilePlaceholder");
+        const removeButton = document.getElementById("removeProfileBtn");
+
+        image.src = url;
+        image.classList.remove("hidden");
+        placeholder.classList.add("hidden");
+
+        if (removeButton) {
+            removeButton.classList.toggle("hidden", !currentUser);
+        }
+    }
+
+    function clearHeroPhoto() {
+        document.getElementById("profileImage").src = "";
+        document.getElementById("profileImage").classList.add("hidden");
+        document.getElementById("profilePlaceholder").classList.remove("hidden");
+        document.getElementById("removeProfileBtn").classList.add("hidden");
+    }
+
+    function renderCardPhoto(cardId, url) {
+        const image = document.getElementById(`img_${cardId}`);
+        const placeholder = document.getElementById(`placeholder_${cardId}`);
+        const removeButton = document.getElementById(`btn_remove_${cardId}`);
+
+        if (!image || !placeholder) return;
+
+        image.src = url;
+        image.classList.remove("hidden");
+        placeholder.classList.add("hidden");
+
+        if (removeButton) {
+            removeButton.classList.toggle("hidden", !currentUser);
+        }
+    }
+
+    function clearCardPhoto(cardId) {
+        const image = document.getElementById(`img_${cardId}`);
+        const placeholder = document.getElementById(`placeholder_${cardId}`);
+        const removeButton = document.getElementById(`btn_remove_${cardId}`);
+
+        if (image) {
+            image.src = "";
+            image.classList.add("hidden");
+        }
+
+        if (placeholder) placeholder.classList.remove("hidden");
+        if (removeButton) removeButton.classList.add("hidden");
+    }
+
+    // ==========================================
+    // LOAD PHOTOS FROM SUPABASE
+    // ==========================================
+
+    async function loadAllPortfolioPhotos() {
+        const { data, error } = await supabaseClient
+            .from("portfolio_images")
+            .select("slot, storage_path");
+
+        if (error) {
+            showStatus("Could not load photos: " + error.message);
+            return;
+        }
+
+        // Clear all placeholders first
+        clearHeroPhoto();
+
+        for (let i = 1; i <= 6; i++) {
+            clearCardPhoto(`card_${i}`);
+        }
+
+        data.forEach((photo) => {
+            const { data: publicData } = supabaseClient.storage
+                .from(BUCKET)
+                .getPublicUrl(photo.storage_path);
+
+            if (photo.slot === "profile") {
+                renderHeroPhoto(publicData.publicUrl);
+            } else if (/^card_[1-6]$/.test(photo.slot)) {
+                renderCardPhoto(photo.slot, publicData.publicUrl);
+            }
+        });
+    }
+
+    // ==========================================
+    // UPLOAD A PHOTO
+    // ==========================================
+
+    async function uploadPortfolioPhoto(slot, file) {
+        if (!currentUser) {
+            showStatus("Please sign in before uploading photos.");
+            return;
+        }
+
+        if (!file || !file.type.startsWith("image/")) {
+            showStatus("Please select an image file.");
+            return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+            showStatus("Please choose an image smaller than 5 MB.");
+            return;
+        }
+
+        showStatus("Uploading photo...");
+
+        try {
+            const extension = file.name.split(".").pop().toLowerCase()
+                .replace(/[^a-z0-9]/g, "") || "jpg";
+
+            const storagePath =
+                `${currentUser.id}/${slot}.${extension}`;
+
+            // Remember the previous file so it can be removed after replacement
+            const { data: previous } = await supabaseClient
+                .from("portfolio_images")
+                .select("storage_path")
+                .eq("slot", slot)
+                .maybeSingle();
+
+            // Upload image to Supabase Storage
+            const { error: uploadError } = await supabaseClient.storage
+                .from(BUCKET)
+                .upload(storagePath, file, {
+                    upsert: true,
+                    contentType: file.type,
+                    cacheControl: "3600"
+                });
+
+            if (uploadError) throw uploadError;
+
+            // Save its location in the database
+            const { error: databaseError } = await supabaseClient
+                .from("portfolio_images")
+                .upsert({
+                    slot,
+                    storage_path: storagePath,
+                    user_id: currentUser.id,
+                    updated_at: new Date().toISOString()
+                }, {
+                    onConflict: "slot"
+                });
+
+            if (databaseError) throw databaseError;
+
+            // Remove the old file if its extension changed
+            if (previous?.storage_path &&
+                previous.storage_path !== storagePath) {
+                await supabaseClient.storage
+                    .from(BUCKET)
+                    .remove([previous.storage_path]);
+            }
+
+            const { data: publicData } = supabaseClient.storage
+                .from(BUCKET)
+                .getPublicUrl(storagePath);
+
+            if (slot === "profile") {
+                renderHeroPhoto(publicData.publicUrl);
+            } else {
+                renderCardPhoto(slot, publicData.publicUrl);
+            }
+
+            showStatus("Photo uploaded and saved successfully!");
+
+        } catch (error) {
+            console.error(error);
+            showStatus("Upload failed: " + error.message);
+        }
+    }
+
+    // ==========================================
+    // PROFILE PHOTO
+    // ==========================================
+
+    const profileHolder = document.getElementById("profileHolder");
+    const profileInput = document.getElementById("profileInput");
+
+    profileHolder.addEventListener("click", () => {
+        if (!currentUser) {
+            showStatus("Please sign in to change your profile photo.");
+            return;
+        }
+
+        profileInput.click();
+    });
+
+    profileInput.addEventListener("change", async (e) => {
+        const file = e.target.files[0];
+
+        if (file) {
+            await uploadPortfolioPhoto("profile", file);
+        }
+
+        profileInput.value = "";
+    });
+
+    document.getElementById("removeProfileBtn")
+        .addEventListener("click", async () => {
+            await removePortfolioPhoto("profile");
+        });
+
+    // ==========================================
+    // SIX PORTFOLIO PHOTO CARDS
+    // ==========================================
+
+    window.triggerCardUpload = function(cardId) {
+        if (!currentUser) {
+            showStatus("Please sign in to upload portfolio photos.");
+            return;
+        }
+
+        document.getElementById(`input_${cardId}`).click();
+    };
+
+    window.handleCardUpload = async function(event, cardId) {
+        const file = event.target.files[0];
+
+        if (file) {
+            await uploadPortfolioPhoto(cardId, file);
+        }
+
+        event.target.value = "";
+    };
+
+    // ==========================================
+    // REMOVE A PHOTO
+    // ==========================================
+
+    async function removePortfolioPhoto(slot) {
+        if (!currentUser) {
+            showStatus("Please sign in first.");
+            return;
+        }
+
+        showStatus("Removing photo...");
+
+        try {
+            const { data: photo, error: readError } = await supabaseClient
+                .from("portfolio_images")
+                .select("storage_path")
+                .eq("slot", slot)
+                .maybeSingle();
+
+            if (readError) throw readError;
+
+            if (photo?.storage_path) {
+                const { error: storageError } = await supabaseClient.storage
+                    .from(BUCKET)
+                    .remove([photo.storage_path]);
+
+                if (storageError) throw storageError;
+            }
+
+            const { error: deleteError } = await supabaseClient
+                .from("portfolio_images")
+                .delete()
+                .eq("slot", slot);
+
+            if (deleteError) throw deleteError;
+
+            if (slot === "profile") {
+                clearHeroPhoto();
+            } else {
+                clearCardPhoto(slot);
+            }
+
+            showStatus("Photo removed successfully.");
+
+        } catch (error) {
+            console.error(error);
+            showStatus("Could not remove photo: " + error.message);
+        }
+    }
+
+    window.removeCardPhoto = async function(cardId) {
+        await removePortfolioPhoto(cardId);
+    };
+
+    // ==========================================
+    // CONTACT FORM
+    // ==========================================
+
+    function handleFormSubmit(e) {
+        e.preventDefault();
+        alert("Thank you! Your message has been received.");
+        e.target.reset();
+    }
+
+    // ==========================================
+    // START WEBSITE
+    // ==========================================
+
+    async function initializePortfolio() {
+        const { data } = await supabaseClient.auth.getSession();
+
+        currentUser = data.session?.user || null;
+        updateLoginDisplay();
+
+        await loadAllPortfolioPhotos();
+    }
+
+    initializePortfolio();
+</script>
 </script>
        
 </body>
