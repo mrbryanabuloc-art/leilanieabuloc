@@ -732,15 +732,15 @@ function updateLoginDisplay() {
 
 // Show or hide Owner Access panel
 ownerAccessButton.addEventListener("click", () => {
-    const isHidden = ownerManagement.classList.contains("hidden");
+    ownerManagement.classList.remove("hidden");
 
-    ownerManagement.classList.toggle("hidden");
+    updateLoginDisplay();
 
-    if (isHidden) {
-        updateLoginDisplay();
-    }
+    ownerManagement.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
 });
-
 // Sign in
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
     e.preventDefault();
