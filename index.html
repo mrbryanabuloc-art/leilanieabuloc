@@ -735,15 +735,30 @@ const ownerSignedIn = document.getElementById("ownerSignedIn");
 const ownerAccessButton = document.getElementById("ownerAccessButton");
 
 function updateLoginDisplay() {
+
+    // Update owner login display
     ownerLogin.classList.toggle("hidden", !!currentUser);
     ownerSignedIn.classList.toggle("hidden", !currentUser);
-}
 
-// Open dialogue when Owner Access is clicked
-ownerAccessButton.addEventListener("click", () => {
-    updateLoginDisplay();
-    ownerManagement.classList.remove("hidden");
-});
+    // Show or hide the profile photo Remove button
+    const profileRemoveButton = document.getElementById("removeProfileBtn");
+
+    if (profileRemoveButton) {
+        profileRemoveButton.classList.toggle("hidden", !currentUser);
+    }
+
+    // Show or hide all six portfolio Remove buttons
+    for (let i = 1; i <= 6; i++) {
+
+        const removeButton = document.getElementById(
+            `btn_remove_card_${i}`
+        );
+
+        if (removeButton) {
+            removeButton.classList.toggle("hidden", !currentUser);
+        }
+    }
+}
 
 // Sign in
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
