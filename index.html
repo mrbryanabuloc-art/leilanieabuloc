@@ -651,9 +651,25 @@
     </section>
 
     <!-- FOOTER -->
-  <button id="ownerAccessButton" class="owner-access-btn">
-    Owner Access
-</button>
+<!-- FOOTER -->
+<footer class="bg-slate-900 text-slate-300 py-8 text-center">
+    <div class="max-w-7xl mx-auto px-4">
+
+        <p class="text-sm">
+            © <span id="currentYear"></span>
+            Leilanie Grace Abuloc. All rights reserved.
+        </p>
+
+        <button
+            id="ownerAccessButton"
+            type="button"
+            class="mt-4 px-4 py-2 rounded-lg border border-teal-500 text-teal-400 text-sm hover:bg-teal-900 transition-colors"
+        >
+            Owner Access
+        </button>
+
+    </div>
+</footer>
     </footer>
 
     <!-- JAVASCRIPT LOGIC (LOCALSTORAGE & INTERACTION) -->
@@ -700,60 +716,82 @@
     // SIGN-IN AND SIGN-OUT
     // ==========================================
 
-    const ownerLogin = document.getElementById("ownerLogin");
-    const ownerSignedIn = document.getElementById("ownerSignedIn");
+  // ==========================================
+// SIGN-IN AND SIGN-OUT
+// ==========================================
 
-  function updateLoginDisplay() {
-    const ownerLogin = document.getElementById("ownerLogin");
-    const ownerSignedIn = document.getElementById("ownerSignedIn");
-    const ownerAccessButton = document.getElementById("ownerAccessButton");
+const ownerManagement = document.getElementById("ownerManagement");
+const ownerLogin = document.getElementById("ownerLogin");
+const ownerSignedIn = document.getElementById("ownerSignedIn");
+const ownerAccessButton = document.getElementById("ownerAccessButton");
 
-    if (currentUser) {
-        ownerLogin?.classList.add("hidden");
-        ownerSignedIn?.classList.remove("hidden");
-        ownerAccessButton?.classList.remove("hidden");
-    } else {
-        ownerLogin?.classList.add("hidden");
-        ownerSignedIn?.classList.add("hidden");
-        ownerAccessButton?.classList.remove("hidden");
-    }
+function updateLoginDisplay() {
+    ownerLogin.classList.toggle("hidden", !!currentUser);
+    ownerSignedIn.classList.toggle("hidden", !currentUser);
 }
 
-    document.getElementById("loginForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
-        showStatus("Signing in...");
+// Show or hide Owner Access panel
+ownerAccessButton.addEventListener("click", () => {
+    const isHidden = ownerManagement.classList.contains("hidden");
 
-        const email = document.getElementById("ownerEmail").value;
-        const password = document.getElementById("ownerPassword").value;
+    ownerManagement.classList.toggle("hidden");
 
-        const { data, error } = await supabaseClient.auth.signInWithPassword({
-            email,
-            password
-        });
-
-        if (error) {
-            showStatus("Sign-in failed: " + error.message);
-            return;
-        }
-
-        currentUser = data.user;
-updateLoginDisplay();
-showStatus("You're signed in! You can now manage your photos.");
-    });
-
-    document.getElementById("logoutButton").addEventListener("click", async () => {
-        const { error } = await supabaseClient.auth.signOut();
-
-        if (error) {
-            showStatus("Sign-out failed: " + error.message);
-            return;
-        }
-
-        currentUser = null;
+    if (isHidden) {
         updateLoginDisplay();
-        showStatus("You have signed out.");
+    }
+});
+
+// Sign in
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    showStatus("Signing in...");
+
+    const email = document.getElementById("ownerEmail").value;
+    const password = document.getElementById("ownerPassword").value;
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email,
+        password
     });
 
+    if (error) {
+        showStatus("Sign-in failed: " + error.message);
+        return;
+    }
+
+    currentUser = data.user;
+
+    updateLoginDisplay();
+
+    document.getElementById("ownerPassword").value = "";
+
+    await loadAllPortfolioPhotos();
+
+    showStatus("Successfully signed in!");
+});
+
+// Sign out
+document.getElementById("logoutButton").addEventListener("click", async () => {
+    const { error } = await supabaseClient.auth.signOut();
+
+    if (error) {
+        showStatus("Sign-out failed: " + error.message);
+        return;
+    }
+
+    currentUser = null;
+
+    updateLoginDisplay();
+
+    showStatus("You have signed out.");
+});
+
+// Keep login display synchronized with Supabase
+supabaseClient.auth.onAuthStateChange((_event, session) => {
+    currentUser = session?.user || null;
+    updateLoginDisplay();
+});
     supabaseClient.auth.onAuthStateChange((_event, session) => {
         currentUser = session?.user || null;
         updateLoginDisplay();
