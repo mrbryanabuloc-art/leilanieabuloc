@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Professional portfolio of Leilanie Grace A. Abuloc, Science Teacher." />
+  <title>Leilanie Grace A. Abuloc | Science Educator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #16302b;
+      --muted: #5e706b;
+      --paper: #f7f6f1;
+      --card: #ffffff;
+      --sage: #dce8df;
+      --sage-dark: #47705d;
+      --teal: #1f6b66;
+      --gold: #c99b4b;
+      --line: #dfe5df;
+      --shadow: 0 18px 45px rgba(22, 48, 43, 0.08);
+      --radius: 22px;
+      --max: 1120px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.65;
+    }
+    a { color: inherit; }
+    .container { width: min(var(--max), calc(100% - 36px)); margin: 0 auto; }
+    nav {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(247,246,241,.92); backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(223,229,223,.8);
+    }
+    .nav-inner { height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { font-weight: 700; text-decoration: none; letter-spacing: .02em; }
+    .brand span { color: var(--teal); }
+    .nav-links { display: flex; gap: 22px; align-items: center; flex-wrap: wrap; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: .93rem; font-weight: 600; }
+    .nav-links a:hover { color: var(--teal); }
+    .hero { padding: 78px 0 62px; }
+    .hero-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 56px; align-items: center; }
+    .eyebrow { color: var(--teal); font-weight: 700; letter-spacing: .14em; text-transform: uppercase; font-size: .76rem; }
+    h1, h2, h3 { margin: 0; line-height: 1.15; }
+    h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 7vw, 5.5rem); letter-spacing: -.04em; margin: 12px 0 18px; }
+    .hero p { font-size: 1.12rem; color: var(--muted); max-width: 690px; }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 28px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 18px; border-radius: 999px; text-decoration: none; font-weight: 700; border: 1px solid transparent; }
+    .btn-primary { color: #fff; background: var(--teal); }
+    .btn-secondary { background: transparent; border-color: var(--line); }
+    .btn:hover { transform: translateY(-1px); }
+    .photo-frame {
+      aspect-ratio: 1 / 1.08; border-radius: 32px; background: linear-gradient(145deg, var(--sage), #eef2ec);
+      box-shadow: var(--shadow); padding: 12px; position: relative; overflow: hidden;
+    }
+    .photo-frame img { width: 100%; height: 100%; object-fit: cover; border-radius: 24px; display: none; }
+    .photo-placeholder { height: 100%; border: 2px dashed #a9beb1; border-radius: 24px; display: grid; place-items: center; text-align: center; padding: 35px; color: var(--sage-dark); }
+    .photo-placeholder strong { display: block; font-size: 1.1rem; }
+    .upload-btn { margin-top: 14px; cursor: pointer; display: inline-block; background: #fff; padding: 9px 13px; border-radius: 999px; font-weight: 700; font-size: .88rem; border: 1px solid var(--line); }
+    input[type=file] { display: none; }
+    section { padding: 82px 0; }
+    .section-head { display: flex; justify-content: space-between; gap: 30px; align-items: end; margin-bottom: 28px; }
+    .section-head h2 { font-family: 'Playfair Display', serif; font-size: clamp(2.1rem, 4vw, 3.1rem); }
+    .section-head p { max-width: 600px; color: var(--muted); margin: 0; }
+    .about-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 28px; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; box-shadow: 0 8px 24px rgba(22,48,43,.035); }
+    .stat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .stat { background: var(--sage); border-radius: 18px; padding: 22px; }
+    .stat strong { display: block; font-size: 1.8rem; color: var(--teal); }
+    .stat span { font-size: .9rem; color: var(--muted); }
+    .timeline { position: relative; display: grid; gap: 22px; }
+    .timeline::before { content: ''; position: absolute; left: 10px; top: 4px; bottom: 4px; width: 2px; background: var(--line); }
+    .job { position: relative; padding-left: 42px; }
+    .dot { position: absolute; left: 3px; top: 10px; width: 16px; height: 16px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 6px var(--paper); }
+    .job-card h3 { font-size: 1.25rem; }
+    .meta { color: var(--teal); font-weight: 700; font-size: .88rem; margin: 7px 0 14px; }
+    .job-card ul { margin: 0; padding-left: 20px; color: var(--muted); }
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 9px; }
+    .chip { border: 1px solid var(--line); border-radius: 999px; padding: 9px 12px; font-size: .9rem; background: #fbfcfa; }
+    .credential { display:flex; justify-content:space-between; gap:18px; padding: 18px 0; border-bottom:1px solid var(--line); }
+    .credential:last-child { border-bottom: 0; padding-bottom: 0; }
+    .credential strong { display:block; }
+    .credential span { color: var(--muted); font-size:.9rem; }
+    .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .gallery-item { min-height: 240px; border-radius: 20px; overflow: hidden; background: #edf2ed; border: 1px dashed #acc0b3; position: relative; }
+    .gallery-item img { width:100%; height:100%; object-fit:cover; display:none; }
+    .gallery-empty { position:absolute; inset:0; display:grid; place-items:center; text-align:center; padding:20px; color:var(--muted); }
+    .gallery-upload { display:block; width:max-content; margin:18px auto 0; cursor:pointer; color:var(--teal); font-weight:700; }
+    .award-grid { display:grid; grid-template-columns: repeat(2,1fr); gap:16px; }
+    .award { padding: 22px; background:#fff; border:1px solid var(--line); border-radius:18px; }
+    .award b { color: var(--gold); font-size: .75rem; letter-spacing:.08em; text-transform:uppercase; }
+    .award h3 { margin-top:7px; font-size:1.08rem; }
+    .contact { background: var(--ink); color: #fff; }
+    .contact .section-head p, .contact .meta { color: #c8d7d2; }
+    .contact-grid { display:grid; grid-template-columns: 1fr .8fr; gap:28px; align-items:stretch; }
+    .contact-card { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14); border-radius: var(--radius); padding: 28px; }
+    .contact-card a { text-decoration:none; }
+    footer { padding: 25px 0 35px; background: var(--ink); color:#a9bbb5; font-size:.88rem; }
+    .mini { font-size:.8rem; color:var(--muted); }
+    @media (max-width: 850px) {
+      .hero-grid, .about-grid, .split, .contact-grid { grid-template-columns: 1fr; }
+      .gallery { grid-template-columns: repeat(2, 1fr); }
+      .nav-links { display:none; }
+      .hero { padding-top: 48px; }
+    }
+    @media (max-width: 560px) {
+      .container { width: min(var(--max), calc(100% - 24px)); }
+      .gallery, .award-grid, .stat-grid { grid-template-columns: 1fr; }
+      section { padding: 58px 0; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container nav-inner">
+      <a class="brand" href="#top">Leilanie Grace <span>Abuloc</span></a>
+      <div class="nav-links">
+        <a href="#about">About</a><a href="#experience">Experience</a><a href="#skills">Skills</a><a href="#portfolio">Portfolio</a><a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Science Educator • Grades 9–12</div>
+          <h1>Teaching science with curiosity, rigor & care.</h1>
+          <p>Dedicated Science Educator with 13 years of teaching experience—10 years in the Philippines and 3 years in U.S. classrooms. Specializing in Chemistry, Physical Science, and Earth & Environmental Science.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#experience">View experience</a>
+            <a class="btn btn-secondary" href="assets/Leilanie_Grace_Abuloc_Resume.pdf" target="_blank">View résumé</a>
+          </div>
+        </div>
+        <div class="photo-frame" id="profileFrame">
+          <img id="profileImage" alt="Professional profile photo" />
+          <div class="photo-placeholder" id="profilePlaceholder">
+            <div>
+              <div style="font-size:2.8rem">📷</div>
+              <strong>Add your professional photo</strong>
+              <div class="mini">Click below to upload an image from your computer.</div>
+              <label class="upload-btn" for="profileUpload">Upload photo</label>
+              <input id="profileUpload" type="file" accept="image/*" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-head"><div><div class="eyebrow">About me</div><h2>An educator rooted in inquiry.</h2></div><p>I create safe, inclusive and engaging learning environments that help students build scientific literacy, critical thinking, problem-solving and science process skills.</p></div>
+        <div class="about-grid">
+          <div class="card"><h3>Professional profile</h3><p>Experienced in curriculum development, standards-aligned instruction, laboratory safety, classroom management and student assessment. Skilled in managing diverse U.S. classrooms of 25–35 students and differentiating instruction for varied academic needs.</p><p>My practice combines student-centered, inquiry-based and data-informed strategies with digital tools, laboratory investigations and real-world applications.</p></div>
+          <div class="stat-grid">
+            <div class="stat"><strong>13</strong><span>Years of teaching experience</span></div>
+            <div class="stat"><strong>10</strong><span>Years of science teaching in the Philippines</span></div>
+            <div class="stat"><strong>3</strong><span>Years in U.S. classrooms</span></div>
+            <div class="stat"><strong>25–35</strong><span>Typical U.S. classroom size managed</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="container">
+        <div class="section-head"><div><div class="eyebrow">Experience</div><h2>Teaching journey</h2></div><p>A cross-cultural teaching career spanning U.S., Philippine, and international school settings.</p></div>
+        <div class="timeline">
+          <article class="job"><div class="dot"></div><div class="card job-card"><h3>Honors/IB Chemistry • Physical Science • Earth & Environmental Science</h3><div class="meta">Smithfield-Selma Senior High School, North Carolina · August 2023–Present</div><ul><li>Teach Grades 9–12 science through standards-aligned, inquiry-driven and laboratory-based instruction.</li><li>Use digital simulations, interactive activities, laboratory investigations and real-world applications.</li><li>Apply differentiated and student-centered strategies for varied abilities, learning styles and needs.</li><li>Use student performance and assessment data to inform instruction and intervention.</li></ul></div></article>
+          <article class="job"><div class="dot"></div><div class="card job-card"><h3>Grade 9 Science Teacher</h3><div class="meta">Jacinto P. Elpa National High School, Philippines · June 2019–June 2023</div><ul><li>Delivered standards-aligned Grade 9 Science instruction using the Philippine K–12 Basic Education Curriculum.</li><li>Designed inquiry-based learning in which students asked questions, formed hypotheses, investigated evidence and communicated conclusions.</li><li>Created formative and summative assessments, performance tasks, projects, laboratory activities and examinations.</li></ul></div></article>
+          <article class="job"><div class="dot"></div><div class="card job-card"><h3>Grade 7–8 Biotechnology & General Science Teacher</h3><div class="meta">Jacinto P. Elpa National High School, Philippines · May 2013–2017</div><ul><li>Taught Biotechnology and General Science in a selective Special Science Class with enriched STEM instruction.</li><li>Designed research-based, inquiry-driven lessons aligned with the Philippine Science, Technology, and Engineering (STE) curriculum.</li><li>Coached STE students for school, district and inter-school science competitions.</li><li>Supported school-wide STEM enrichment programs, science fairs, research activities and academic competitions.</li></ul></div></article>
+          <article class="job"><div class="dot"></div><div class="card job-card"><h3>English as a Second Language (ESL) Teacher</h3><div class="meta">BeiBei Guolan Central Kindergarten, PR China · June 2018–June 2019</div><ul><li>Created age-appropriate, interactive English lessons using songs, stories, games, role-play, movement and hands-on learning.</li><li>Built foundational listening, speaking, vocabulary, pronunciation and communication skills.</li></ul></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <div class="section-head"><div><div class="eyebrow">Strengths & tools</div><h2>What I bring to a school.</h2></div><p>Instructional, classroom and technology strengths drawn from the current résumé.</p></div>
+        <div class="split">
+          <div class="card"><h3>Core teaching skills</h3><div class="chips" style="margin-top:16px"><span class="chip">U.S. Classroom Instruction</span><span class="chip">Curriculum Implementation</span><span class="chip">Inquiry-Based Instruction</span><span class="chip">Differentiated Instruction</span><span class="chip">Classroom Management</span><span class="chip">Student Assessment</span><span class="chip">Data-Driven Instruction</span><span class="chip">Standards-Aligned Planning</span><span class="chip">Parent / Student / Staff Communication</span><span class="chip">Educational Content Development</span></div></div>
+          <div class="card"><h3>Science & classroom technology</h3><div class="chips" style="margin-top:16px"><span class="chip">Chemistry</span><span class="chip">Physical Science</span><span class="chip">Earth & Environmental Science</span><span class="chip">Biotechnology</span><span class="chip">McGraw Hill</span><span class="chip">Actively Learn</span><span class="chip">Vernier Science Probes</span><span class="chip">Canvas</span><span class="chip">Google Classroom</span><span class="chip">ClassDojo</span><span class="chip">Kahoot!</span><span class="chip">Blooket</span><span class="chip">PhET Simulations</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education">
+      <div class="container">
+        <div class="section-head"><div><div class="eyebrow">Credentials</div><h2>Education & licensure</h2></div><p>Academic preparation and current teaching licenses listed on the résumé.</p></div>
+        <div class="split">
+          <div class="card">
+            <div class="credential"><div><strong>Master of Arts/Science in Science Education</strong><span>30 units · Complete Academic Requirement</span></div><div class="mini">May 2016</div></div>
+            <div class="credential"><div><strong>Bachelor of Secondary Education</strong><span>Major in General Science · Surigao del Sur Polytechnic State College</span></div><div class="mini">2003–2007</div></div>
+          </div>
+          <div class="card">
+            <div class="credential"><div><strong>North Carolina Department of Public Instruction</strong><span>Teaching License · Middle School (6–9) & High School (9–12)</span></div><div class="mini">No. 1285318</div></div>
+            <div class="credential"><div><strong>Philippine Regulation Commission</strong><span>Teaching License</span></div><div class="mini">No. 1094059</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="portfolio">
+      <div class="container">
+        <div class="section-head"><div><div class="eyebrow">Portfolio</div><h2>Show your classroom story.</h2></div><p>Use these photo holders for classroom activities, laboratory investigations, student projects, science fairs, certifications, or professional highlights.</p></div>
+        <div class="gallery" id="gallery">
+          <div class="gallery-item"><div class="gallery-empty">📸<br><strong>Classroom / Lab Photo</strong><label class="gallery-upload" for="g1">Upload image</label><input id="g1" type="file" accept="image/*" /></div><img alt="Portfolio image 1"></div>
+          <div class="gallery-item"><div class="gallery-empty">🧪<br><strong>Science Activity</strong><label class="gallery-upload" for="g2">Upload image</label><input id="g2" type="file" accept="image/*" /></div><img alt="Portfolio image 2"></div>
+          <div class="gallery-item"><div class="gallery-empty">🏆<br><strong>Award / Competition</strong><label class="gallery-upload" for="g3">Upload image</label><input id="g3" type="file" accept="image/*" /></div><img alt="Portfolio image 3"></div>
+          <div class="gallery-item"><div class="gallery-empty">🔬<br><strong>Student Research</strong><label class="gallery-upload" for="g4">Upload image</label><input id="g4" type="file" accept="image/*" /></div><img alt="Portfolio image 4"></div>
+          <div class="gallery-item"><div class="gallery-empty">🌎<br><strong>School / Community</strong><label class="gallery-upload" for="g5">Upload image</label><input id="g5" type="file" accept="image/*" /></div><img alt="Portfolio image 5"></div>
+          <div class="gallery-item"><div class="gallery-empty">✨<br><strong>Professional Highlight</strong><label class="gallery-upload" for="g6">Upload image</label><input id="g6" type="file" accept="image/*" /></div><img alt="Portfolio image 6"></div>
+        </div>
+        <p class="mini" style="margin-top:15px">Photos uploaded here are displayed locally in your browser. They are not automatically sent to a server.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head"><div><div class="eyebrow">Awards & contributions</div><h2>Highlights beyond the classroom.</h2></div></div>
+        <div class="award-grid">
+          <div class="award"><b>2022</b><h3>1st Placer, Coach — Individual Science Quiz, Grade 9</h3></div>
+          <div class="award"><b>2019–2020</b><h3>Author, Grade 9 Science First Quarter Module Writer</h3></div>
+          <div class="award"><b>2019</b><h3>Outstanding Judge, Global IELTS Training School, PR China</h3></div>
+          <div class="award"><b>2019</b><h3>STAR of Outlook English Talent Winning Coach, Luoyang City, PR China</h3></div>
+          <div class="award"><b>Professional recognition</b><h3>Interviewed and nominated by Beijing's International Broadcasting News as one of Luoyang's Top Foreign Language Teachers</h3></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <div class="container contact-grid">
+        <div>
+          <div class="eyebrow">Let's connect</div>
+          <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4rem);margin:10px 0 16px">Ready to inspire the next generation of scientists.</h2>
+          <p style="color:#c8d7d2;max-width:620px">Open to opportunities where rigorous science teaching, student-centered learning, STEM enrichment and international classroom experience can make a difference.</p>
+        </div>
+        <div class="contact-card">
+          <div class="meta">CONTACT</div>
+          <p><strong>Email</strong><br><a href="mailto:elpaplanning@gmail.com">elpaplanning@gmail.com</a></p>
+          <p><strong>Phone</strong><br><a href="tel:+19194376811">+1 (919) 437-6811</a></p>
+          <p><strong>Location</strong><br>Clayton, North Carolina, USA</p>
+          <p><strong>LinkedIn</strong><br><a href="https://www.linkedin.com/in/leilanie-grace-abuloc-9b3364265" target="_blank" rel="noopener">linkedin.com/in/leilanie-grace-abuloc-9b3364265</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="container">© <span id="year"></span> Leilanie Grace A. Abuloc · Science Educator Portfolio</div></footer>
+
+  <script>
+    function bindImageUpload(inputId, imgId, placeholderId) {
+      const input = document.getElementById(inputId);
+      const img = document.getElementById(imgId);
+      const placeholder = placeholderId ? document.getElementById(placeholderId) : null;
+      if (!input) return;
+      input.addEventListener('change', () => {
+        const file = input.files && input.files[0];
+        if (!file) return;
+        if (!file.type.startsWith('image/')) return alert('Please choose an image file.');
+        const reader = new FileReader();
+        reader.onload = e => {
+          img.src = e.target.result;
+          img.style.display = 'block';
+          if (placeholder) placeholder.style.display = 'none';
+          else {
+            const empty = img.parentElement.querySelector('.gallery-empty');
+            if (empty) empty.style.display = 'none';
+          }
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+    bindImageUpload('profileUpload','profileImage','profilePlaceholder');
+    document.querySelectorAll('.gallery-item').forEach((item, index) => {
+      const input = item.querySelector('input[type=file]');
+      const img = item.querySelector('img');
+      if (!input || !img) return;
+      input.addEventListener('change', () => {
+        const file = input.files && input.files[0];
+        if (!file || !file.type.startsWith('image/')) return;
+        const reader = new FileReader();
+        reader.onload = e => { img.src = e.target.result; img.style.display = 'block'; item.querySelector('.gallery-empty').style.display = 'none'; };
+        reader.readAsDataURL(file);
+      });
+    });
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
